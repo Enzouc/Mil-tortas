@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelería Mil Sabores - Productos</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/productos.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Pastelería Mil Sabores</h1>
+                <p>50 años endulzando Chile</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html" class="active">Productos</a></li>
+                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="productos">
+            <div class="container">
+                <h2>Nuestro Catálogo de Tortas</h2>
+                
+                <div class="filtros">
+                    <div class="filtro-grupo">
+                        <label>Categoría:</label>
+                        <button class="categoria-btn active" data-categoria="todos">Todas</button>
+                        <button class="categoria-btn" data-categoria="Tortas Cuadradas">Tortas Cuadradas</button>
+                        <button class="categoria-btn" data-categoria="Tortas Circulares">Tortas Circulares</button>
+                        <button class="categoria-btn" data-categoria="Postres Individuales">Postres Individuales</button>
+                        <button class="categoria-btn" data-categoria="Productos Sin Azúcar">Productos Sin Azúcar</button>
+                        <button class="categoria-btn" data-categoria="Pastelería Tradicional">Pastelería Tradicional</button>
+                        <button class="categoria-btn" data-categoria="Productos sin gluten">Productos Sin Gluten</button>
+                        <button class="categoria-btn" data-categoria="Productos Vegana">Productos Veganos</button>
+                        <button class="categoria-btn" data-categoria="Tortas Especiales">Tortas Especiales</button>
+                    </div>
+                    <div class="filtro-grupo">
+                        <label for="filtro-tamano">Tamaño:</label>
+                        <select id="filtro-tamano">
+                            <option value="todos">Todos los tamaños</option>
+                            <option value="pequeno">Pequeño</option>
+                            <option value="mediano">Mediano</option>
+                            <option value="grande">Grande</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="productos-grid" id="productos-grid">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h3>Pastelería Mil Sabores</h3>
+                <p>50 años endulzando Chile desde 1974</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>Email: info@Milsabores.cl</p>
+                <p>Teléfono: +56 2 2345 6789</p>
+                <div class="social-icons">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="js/storage.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/app.js"></script>
+    <div id="modal-alerta" class="modal-overlay">
+      <div class="modal-contenido">
+        <p id="modal-mensaje"></p>
+        <button id="modal-cerrar" class="cta-button">Entendido</button>
+      </div>
+    </div>
+    </body>
+</html>
