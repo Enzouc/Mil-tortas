@@ -1,25 +1,42 @@
-const storage = {
-    obtenerCarrito: function () {
-        return JSON.parse(localStorage.getItem('carrito')) || [];
-    },
+import type { CarritoItem, Usuario } from './types';
 
-    guardarCarrito: function (carrito) {
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-    },
+export const storage = {
+  /**
+   * @returns {CarritoItem[]} 
+   */
+  obtenerCarrito(): CarritoItem[] {
+    const carritoJSON = localStorage.getItem('carrito');
+    return carritoJSON ? JSON.parse(carritoJSON) : [];
+  },
 
-    limpiarCarrito: function () {
-        localStorage.removeItem('carrito');
-    },
+  /**
+   * @param {CarritoItem[]} carrito 
+   */
+  guardarCarrito(carrito: CarritoItem[]): void {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+  },
 
-    obtenerUsuario: function () {
-        return JSON.parse(localStorage.getItem('usuario')) || null;
-    },
+  limpiarCarrito(): void {
+    localStorage.removeItem('carrito');
+  },
 
-    guardarUsuario: function (usuario) {
-        localStorage.setItem('usuario', JSON.stringify(usuario));
-    },
+  /**
+   
+   * @returns {Usuario | null} 
+   */
+  obtenerUsuario(): Usuario | null {
+    const usuarioJSON = localStorage.getItem('usuario');
+    return usuarioJSON ? JSON.parse(usuarioJSON) : null;
+  },
 
-    limpiarUsuario: function () {
-        localStorage.removeItem('usuario');
-    }
+  /**
+   * @param {Usuario} usuario 
+   */
+  guardarUsuario(usuario: Usuario): void {
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  },
+
+  limpiarUsuario(): void {
+    localStorage.removeItem('usuario');
+  }
 };

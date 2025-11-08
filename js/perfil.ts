@@ -1,51 +1,65 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const usuario = storage.obtenerUsuario();
 
-    if (!usuario) {
-        window.location.href = 'registro.html';
-        return;
-    }
+import { storage } from './storage';
+import { mostrarAlertaWeb } from './app';
+import type { Usuario } from './types';
 
-    document.getElementById('nombre').value = usuario.nombre;
-    document.getElementById('email').value = usuario.email;
-    document.getElementById('fecha-nacimiento').value = usuario.fechaNacimiento;
-    if (usuario.preferencias && Array.isArray(usuario.preferencias)) {
-        document.querySelectorAll('input[name="preferencias"]').forEach(checkbox => {
-            if (usuario.preferencias.includes(checkbox.value)) {
-                checkbox.checked = true;
-            }
-        });
-    }
 
-    const formulario = document.getElementById('formulario-actualizacion');
-    formulario.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const preferenciasSeleccionadas = [];
-        document.querySelectorAll('input[name="preferencias"]:checked').forEach(checkbox => {
-            preferenciasSeleccionadas.push(checkbox.value);
-        });
+export function inicializarPerfil(): void {
+  const usuario = storage.obtenerUsuario();
 
-        const nombreActualizado = document.getElementById('nombre').value;
-        const emailActualizado = document.getElementById('email').value;
-        const fechaActualizada = document.getElementById('fecha-nacimiento').value;
+  if (!usuario) {
+    window.location.href = 'registro.html';
+    return;
+  }
 
-        const usuarioActualizado = {
-            ...usuario,
-            nombre: nombreActualizado,
-            email: emailActualizado,
-            fechaNacimiento: fechaActualizada,
-            preferencias: preferenciasSeleccionadas
-        };
+  const nombreInput = document.getElementById('nombre') as HTMLInputElement | null;
+  const emailInput = document.getElementById('email') as HTMLInputElement | null;
+  const fechaInput = document.getElementById('fecha-nacimiento') as HTMLInputElement | null;
+  const formulario = document.getElementById('formulario-actualizacion') as HTMLFormElement | null;
+  const btnCerrarSesion = document.getElementById('btn-cerrar-sesion') as HTMLButtonElement | null;
 
-        storage.guardarUsuario(usuarioActualizado);
+  if (nombreInput) nombreInput.value = usuario.nombre;
+  if (emailInput) emailInput.value = usuario.email;
+  if (fechaInput) fechaInput.value = usuario.fechaNacimiento;
 
-        mostrarAlertaWeb('¡Perfil actualizado con éxito!');
+  if (usuario.preferencias && Array.isArray(usuario.preferencias)) {
+    const checkboxes = document.querySelectorAll('input[name="preferencias"]') as NodeListOf<HTMLInputElement>;
+    checkboxes.forEach(checkbox => {
+      if (usuario.preferencias.includes(checkbox.value)) {
+        checkbox.checked = true;
+      }
     });
+  }
 
-    const btnCerrarSesion = document.getElementById('btn-cerrar-sesion');
-    btnCerrarSesion.addEventListener('click', function () {
-        storage.limpiarUsuario();
-        mostrarAlertaWeb('Has cerrado sesión.');
-        window.location.href = 'index.html';
+  if (formulario) {
+    formulario.addEventListener('submit', (e: Event) => {
+      e.preventDefault();
+      
+      const preferenciasSeleccionadas: string[] = [];
+      const checkboxes = document.querySelectorAll('input[name="preferencias"]:checked') as NodeListOf<HTMLInputElement>;
+      checkboxes.forEach(checkbox => {
+        preferenciasSeleccionadas.push(checkbox.value);
+      });
+
+      const usuarioActualizado: Usuario = {
+        ...usuario,
+        nombre: nombreInput?.value || usuario.nombre,
+        email: emailInput?.value || usuario.email,
+        fechaNacimiento: fechaInput?.value || usuario.fechaNacimiento,
+        preferencias: preferenciasSeleccionadas
+      };
+
+      storage.guardarUsuario(usuarioActualizado);
+      mostrarAlertaWeb('¡Perfil actualizado con éxito!');
     });
-});
+  }
+
+  if (btnCerrarSesion) {
+    btnCerrarSesion.addEventListener('click', () => {
+      storage.limpiarUsuario();
+      mostrarAlertaWeb('Has cerrado sesión.');
+      window.location.href = 'index.html';
+    });
+  }
+}
+
