@@ -1,12 +1,11 @@
-
 export interface Producto {
   id: string;
   nombre: string;
   descripcion: string;
   precio: number;
   categoria: string;
-  tipo: 'cuadrada' | 'circular' | 'personalizada'; // Tipos de torta
-  tamano: 'grande' | 'mediano' | 'pequeno'; // Tamaños
+  tipo: 'cuadrada' | 'circular' | 'especial';
+  tamano: 'grande' | 'mediana' | 'pequeña';
   imagen: string;
 }
 
@@ -18,7 +17,16 @@ export interface CarritoItem extends Producto {
 export interface Usuario {
   nombre: string;
   email: string;
-  fechaNacimiento: string; 
-  codigoPromocional?: string; 
-  preferencias?: string[];    
+  fechaNacimiento: string;
+  codigoPromocional?: string;
+  preferencias?: string[]; 
+}
+
+
+export interface Pedido {
+  id: string;
+  fecha: string;
+  productos: CarritoItem[];
+  total: number;
+  estado: 'pendiente' | 'en preparación' | 'entregado' | 'cancelado';
 }

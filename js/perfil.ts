@@ -1,52 +1,53 @@
-
-import { storage } from './storage';
+import { storage } from './storage'; 
 import { mostrarAlertaWeb } from './app';
 import type { Usuario } from './types';
-
 
 export function inicializarPerfil(): void {
   const usuario = storage.obtenerUsuario();
 
+  // Si no hay usuario guardado, redirige al registro
   if (!usuario) {
     window.location.href = 'registro.html';
     return;
   }
 
+  // Elementos del DOM
   const nombreInput = document.getElementById('nombre') as HTMLInputElement | null;
   const emailInput = document.getElementById('email') as HTMLInputElement | null;
   const fechaInput = document.getElementById('fecha-nacimiento') as HTMLInputElement | null;
   const formulario = document.getElementById('formulario-actualizacion') as HTMLFormElement | null;
   const btnCerrarSesion = document.getElementById('btn-cerrar-sesion') as HTMLButtonElement | null;
 
-  if (nombreInput) nombreInput.value = usuario.nombre;
-  if (emailInput) emailInput.value = usuario.email;
-  if (fechaInput) fechaInput.value = usuario.fechaNacimiento;
+  // Rellena los datos actuales
+  if (nombreInput) nombreInput.value = usuario.nombre || '';
+  if (emailInput) emailInput.value = usuario.email || '';
+  if (fechaInput) fechaInput.value = usuario.fechaNacimiento || '';
 
-  if (usuario.preferencias && Array.isArray(usuario.preferencias)) {
+  // Marca las preferencias guardadas
+  if (Array.isArray(usuario.preferencias)) {
     const checkboxes = document.querySelectorAll('input[name="preferencias"]') as NodeListOf<HTMLInputElement>;
     checkboxes.forEach(checkbox => {
-      if (usuario.preferencias.includes(checkbox.value)) {
+      if (usuario.preferencias?.includes(checkbox.value)) {
         checkbox.checked = true;
       }
     });
   }
 
+  // Guardar cambios del perfil
   if (formulario) {
     formulario.addEventListener('submit', (e: Event) => {
       e.preventDefault();
       
       const preferenciasSeleccionadas: string[] = [];
       const checkboxes = document.querySelectorAll('input[name="preferencias"]:checked') as NodeListOf<HTMLInputElement>;
-      checkboxes.forEach(checkbox => {
-        preferenciasSeleccionadas.push(checkbox.value);
-      });
+      checkboxes.forEach(checkbox => preferenciasSeleccionadas.push(checkbox.value));
 
       const usuarioActualizado: Usuario = {
         ...usuario,
         nombre: nombreInput?.value || usuario.nombre,
         email: emailInput?.value || usuario.email,
         fechaNacimiento: fechaInput?.value || usuario.fechaNacimiento,
-        preferencias: preferenciasSeleccionadas
+        preferencias: preferenciasSeleccionadas.length > 0 ? preferenciasSeleccionadas : [],
       };
 
       storage.guardarUsuario(usuarioActualizado);
@@ -62,4 +63,3 @@ export function inicializarPerfil(): void {
     });
   }
 }
-

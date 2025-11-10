@@ -21,13 +21,17 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html" class="active" id="carrito-link">Carrito (<span
-                                id="contador-carrito">0</span>)</a></li>
+                    <li id="nav-pedidos-item" style="display: none;">
+                        <a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a>
+                    </li>
+                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
                 </ul>
             </nav>
+
+
         </div>
     </header>
 
@@ -38,7 +42,7 @@
                 <div class="carrito-items" id="carrito-items">
                 </div>
                 <div class="carrito-total">
-                    <h3>Total: <span id="total-precio">$0</span></h3>
+                    <h3>Total: <span id="carrito-total-monto">$0</span></h3>
                     <button class="finalizar-compra-btn" id="finalizar-compra-btn">Finalizar Compra</button>
                     <a href="productos.html" class="seguir-comprando">Seguir comprando</a>
                 </div>
@@ -78,5 +82,8 @@
     </footer>
 
     <script type="module" src="/js/app.ts"></script>
+    <script type="module" src="/js/carrito.ts"></script>
+
 </body>
+
 </html>

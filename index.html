@@ -1,96 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastelería Mil Sabores - Inicio</title>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/productos.css"> </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pastelería Mil Sabores - Inicio</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/productos.css">
+  <style>
+    /* 👇 Corrección visual directa del botón "Mis pedidos" */
+    #nav-pedidos {
+      display: none; /* Oculto por defecto */
+    }
+
+    header nav ul li {
+      display: flex;
+      align-items: center;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: var(--color-text-main);
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>Pastelería Mil Sabores</h1>
-                <p>50 años endulzando Chile</p>
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">Inicio</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
-                </ul>
-            </nav>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>Pastelería Mil Sabores</h1>
+        <p>50 años endulzando Chile</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">Inicio</a></li>
+         <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li id="nav-pedidos-li"><a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a></li>
+          <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+          <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h2>Celebrando 50 años de dulces momentos</h2>
+        <p>Desde 1974 endulzando las ocasiones especiales de los chilenos.</p>
+        <a href="productos.html" class="cta-button">Ver Todo el Catálogo</a>
+      </div>
+    </section>
+
+    <section class="destacados container">
+      <h2 class="text-center mb-40">Nuestros Productos Destacados</h2>
+      <div class="productos-grid" id="destacados-grid"></div>
+    </section>
+
+    <section class="promociones">
+      <div class="container">
+        <h2 class="text-center">Promociones Especiales</h2>
+        <div class="promo-cards">
+          <div class="promo-card">
+            <h3>50% de Descuento</h3>
+            <p>Para usuarios mayores de 50 años en todos nuestros productos.</p>
+          </div>
+          <div class="promo-card">
+            <h3>10% Descuento de por Vida</h3>
+            <p>Usa el código: FELICES50 al registrarte.</p>
+          </div>
+          <div class="promo-card">
+            <h3>Tortas Gratis para Estudiantes Duoc UC</h3>
+            <p>Regístrate con tu correo institucional y recibe una torta gratis en tu cumpleaños.</p>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
+  </main>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h2>Celebrando 50 años de dulces momentos</h2>
-                <p>Desde 1974 endulzando las ocasiones especiales de los chilenos.</p>
-                <a href="productos.html" class="cta-button">Ver Todo el Catálogo</a>
-            </div>
-        </section>
+  <footer>
+    <div class="container">
+      <div class="footer-section">
+        <h3>Pastelería Mil Sabores</h3>
+        <p>50 años endulzando Chile desde 1974</p>
+      </div>
+      <div class="footer-section">
+        <h3>Enlaces rápidos</h3>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="registro.html">Registro</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Contáctanos</h3>
+        <p>Email: info@milsabores.cl</p>
+        <p>Teléfono: +56 2 2345 6789</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
-        <section class="destacados container">
-            <h2 class="text-center mb-40">Nuestros Productos Destacados</h2>
-            <div class="productos-grid" id="destacados-grid">
-            </div>
-        </section>
+  <script type="module" src="/js/app.ts"></script>
 
-        <section class="promociones">
-            <div class="container">
-                <h2 class="text-center">Promociones Especiales</h2>
-                <div class="promo-cards">
-                    <div class="promo-card">
-                        <h3>50% de Descuento</h3>
-                        <p>Para usuarios mayores de 50 años en todos nuestros productos.</p>
-                    </div>
-                    <div class="promo-card">
-                        <h3>10% Descuento de por Vida</h3>
-                        <p>Usa el código: FELICES50 al registrarte.</p>
-                    </div>
-                    <div class="promo-card">
-                        <h3>Tortas Gratis para Estudiantes Duoc UC</h3>
-                        <p>Regístrate con tu correo institucional y recibe una torta gratis en tu cumpleaños.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+  <script type="module">
+    import { storage } from './js/storage.js';
+    const navPedidos = document.getElementById('nav-pedidos');
+    const navPedidosLi = document.getElementById('nav-pedidos-li');
+    const usuario = storage.obtenerUsuario();
 
-    <footer>
-        <div class="container">
-            <div class="footer-section">
-                <h3>Pastelería Mil Sabores</h3>
-                <p>50 años endulzando Chile desde 1974</p>
-            </div>
-            <div class="footer-section">
-                <h3>Enlaces rápidos</h3>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="registro.html">Registro</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contáctanos</h3>
-                <p>Email: info@Milsabores.cl</p>
-                <p>Teléfono: +56 2 2345 6789</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-<script type="module" src="/js/app.ts"></script>
+    if (usuario && navPedidos && navPedidosLi) {
+      navPedidos.style.display = 'inline-flex';
+      navPedidosLi.style.display = 'flex';
+      navPedidosLi.style.alignItems = 'center';
+    } else if (navPedidosLi) {
+      navPedidosLi.style.display = 'none';
+    }
+  </script>
 </body>
 </html>

@@ -20,12 +20,16 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-                    <li><a href="contacto.html" class="active">Contacto</a></li>
-                    <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                    <li id="nav-pedidos-item" style="display: none;">
+                        <a href="pedidos.html">Mis Pedidos</a>
+                    </li>
+                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
@@ -107,6 +111,7 @@
         </div>
     </footer>
 
-<script type="module" src="/js/app.ts"></script>
+    <script type="module" src="/js/app.ts"></script>
 </body>
+
 </html>

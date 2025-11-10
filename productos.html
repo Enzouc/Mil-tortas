@@ -21,12 +21,16 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html" class="active">Productos</a></li>
-                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+                    <li id="nav-pedidos-item" style="display: none;">
+                        <a href="pedidos.html">Mis Pedidos</a>
+                    </li>
+                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
@@ -34,17 +38,21 @@
         <section class="productos">
             <div class="container">
                 <h2>Nuestro Catálogo de Tortas</h2>
-                
+
                 <div class="filtros">
                     <div class="filtro-grupo">
                         <label>Categoría:</label>
                         <button class="categoria-btn active" data-categoria="todos">Todas</button>
                         <button class="categoria-btn" data-categoria="Tortas Cuadradas">Tortas Cuadradas</button>
                         <button class="categoria-btn" data-categoria="Tortas Circulares">Tortas Circulares</button>
-                        <button class="categoria-btn" data-categoria="Postres Individuales">Postres Individuales</button>
-                        <button class="categoria-btn" data-categoria="Productos Sin Azúcar">Productos Sin Azúcar</button>
-                        <button class="categoria-btn" data-categoria="Pastelería Tradicional">Pastelería Tradicional</button>
-                        <button class="categoria-btn" data-categoria="Productos sin gluten">Productos Sin Gluten</button>
+                        <button class="categoria-btn" data-categoria="Postres Individuales">Postres
+                            Individuales</button>
+                        <button class="categoria-btn" data-categoria="Productos Sin Azúcar">Productos Sin
+                            Azúcar</button>
+                        <button class="categoria-btn" data-categoria="Pastelería Tradicional">Pastelería
+                            Tradicional</button>
+                        <button class="categoria-btn" data-categoria="Productos sin gluten">Productos Sin
+                            Gluten</button>
                         <button class="categoria-btn" data-categoria="Productos Vegana">Productos Veganos</button>
                         <button class="categoria-btn" data-categoria="Tortas Especiales">Tortas Especiales</button>
                     </div>
@@ -96,6 +104,7 @@
         </div>
     </footer>
 
-<script type="module" src="/js/app.ts"></script>
+    <script type="module" src="/js/app.ts"></script>
 </body>
+
 </html>

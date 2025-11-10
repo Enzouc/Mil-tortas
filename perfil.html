@@ -22,12 +22,17 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                    <li id="nav-pedidos-item" style="display: none;">
+                        <a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a>
+                    </li>
+                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
                 </ul>
             </nav>
+
+
         </div>
     </header>
 
@@ -54,7 +59,8 @@
                             <div class="form-group">
                                 <label>Preferencias de Producto:</label>
                                 <div class="checkbox-group">
-                                    <input type="checkbox" id="preferencia-azucar" name="preferencias" value="sin-azucar">
+                                    <input type="checkbox" id="preferencia-azucar" name="preferencias"
+                                        value="sin-azucar">
                                     <label for="preferencia-azucar">Sin azúcar</label>
                                 </div>
                                 <div class="checkbox-group">
@@ -62,11 +68,13 @@
                                     <label for="preferencia-veganos">Productos veganos</label>
                                 </div>
                                 <div class="checkbox-group">
-                                    <input type="checkbox" id="preferencia-gluten" name="preferencias" value="sin-gluten">
+                                    <input type="checkbox" id="preferencia-gluten" name="preferencias"
+                                        value="sin-gluten">
                                     <label for="preferencia-gluten">Sin gluten</label>
                                 </div>
                                 <div class="checkbox-group">
-                                    <input type="checkbox" id="preferencia-lactosa" name="preferencias" value="sin-lactosa">
+                                    <input type="checkbox" id="preferencia-lactosa" name="preferencias"
+                                        value="sin-lactosa">
                                     <label for="preferencia-lactosa">Sin lactosa</label>
                                 </div>
                             </div>
@@ -113,6 +121,7 @@
         </div>
     </footer>
 
-<script type="module" src="/js/app.ts"></script>
+    <script type="module" src="/js/app.ts"></script>
 </body>
+
 </html>
