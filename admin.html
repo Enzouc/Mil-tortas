@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel de Administración</title>
+
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/header.css">
+  <link rel="stylesheet" href="./css/footer.css">
+  <link rel="stylesheet" href="./css/admin.css">
+
+  <!-- Iconos -->
+  <script src="https://kit.fontawesome.com/a2e0e9c6d3.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <header class="header"></header>
+  <!-- CONTENIDO ADMIN -->
+  <main id="admin-dashboard">
+    <h1 class="titulo-admin">Panel de Administración</h1>
+
+    <!-- ░░░ BOTONES SUPERIORES (Perfil y Productos) ░░░ -->
+    <div class="admin-top-buttons">
+      <a href="perfil.html" class="btn-top">
+        <i class="fas fa-user"></i> Perfil
+      </a>
+
+      <a href="productos.html" class="btn-top">
+        <i class="fas fa-box-open"></i> Productos
+      </a>
+    </div>
+
+    <!-- Tarjetas resumen -->
+    <section class="resumen-grid">
+      <div class="card">
+        <h3>Ventas del Mes</h3>
+        <p class="monto">$650.000</p>
+      </div>
+
+      <div class="card">
+        <h3>Pedidos Totales</h3>
+        <p class="monto">125</p>
+      </div>
+
+      <div class="card">
+        <h3>Nuevos Usuarios</h3>
+        <p class="monto">38</p>
+      </div>
+    </section>
+
+    <!-- Métodos de Pago -->
+    <h2 class="subtitulo-admin">Métodos de Pago</h2>
+    <section class="pagos-grid">
+
+      <div class="pago-item">
+        <span class="icono">💳</span>
+        <h4>Tarjeta</h4>
+        <p>54 pagos este mes</p>
+      </div>
+
+      <div class="pago-item">
+        <span class="icono">💵</span>
+        <h4>Efectivo</h4>
+        <p>22 pagos</p>
+      </div>
+
+      <div class="pago-item">
+        <span class="icono">🏦</span>
+        <h4>Transferencia</h4>
+        <p>31 pagos</p>
+      </div>
+
+      <div class="pago-item">
+        <span class="icono">📲</span>
+        <h4>MercadoPago</h4>
+        <p>18 pagos</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>Pastelería Mil Sabores – Admin</p>
+    </div>
+  </footer>
+
+  <!-- ░░░ MENÚ INFERIOR FLOTANTE ░░░ -->
+  <div class="nav-bottom">
+      <a href="index.html">
+        <i class="fas fa-home"></i>
+        Inicio
+      </a>
+
+      <a href="perfil.html">
+        <i class="fas fa-user"></i>
+        Perfil
+      </a>
+
+      <a href="productos.html">
+        <i class="fas fa-box"></i>
+        Productos
+      </a>
+
+      <a href="admin.html" class="activo">
+        <i class="fas fa-cog"></i>
+        Admin
+      </a>
+  </div>
+
+</body>
+</html>
