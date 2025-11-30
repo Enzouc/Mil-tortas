@@ -1,0 +1,373 @@
+
+.hero {
+    background: linear-gradient(rgba(116, 54, 0, 0.6), rgba(0, 0, 0, 0.6)),
+                url('https://static.vecteezy.com/system/resources/previews/014/212/574/non_2x/bakery-cakes-dessert-pastries-linear-pattern-doodle-vintage-food-icons-sweet-elements-background-for-menu-cafe-shop-flat-hand-drawn-vintage-set-free-vector.jpg')
+                no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+    margin-bottom: 40px;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+
+.categorias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.categoria-btn {
+    padding: 8px 15px;
+    background-color: white;
+    border: 1px solid var(--color-primary);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.categoria-btn:hover {
+    background-color: var(--color-primary-accent);
+    color: white;
+}
+
+.categoria-btn.active {
+    background-color: var(--color-secondary-accent);
+    color: white;
+}
+
+
+@media (max-width: 768px) {
+    .filtros {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+    }
+
+    .filtro-grupo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .filtro-grupo label {
+        white-space: nowrap;
+    }
+}
+
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.producto-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+}
+
+.producto-img img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.producto-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; 
+}
+
+
+.producto-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.producto-info p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 15px;
+    height: 60px;
+    overflow: hidden;
+}
+
+.producto-precio {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-secondary-accent);
+    margin-bottom: 5px;
+}
+
+
+.ver-mas-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 18px;
+    background-color: var(--color-primary-accent);
+    color: var(--color-text-main);
+    border: none;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: var(--transition);
+}
+
+.ver-mas-btn:hover {
+    background-color: #ffd6df;
+    transform: translateY(-3px);
+}
+
+
+
+.social-share {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.social-share span {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+}
+
+.share-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.share-icon.fb { background: #3b5998; }
+.share-icon.tw { background: #000; }
+.share-icon.wa { background: #25D366; }
+
+.share-icon:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #fff7ee;
+    padding: 25px;
+    border-radius: 10px;
+    width: 95%;
+    max-width: 420px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    cursor: pointer;
+    font-size: 26px;
+}
+
+
+.modal-img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+
+.modal-cantidad {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.cant-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    background-color: var(--color-primary-accent);
+    color: var(--color-text-main);
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: var(--transition);
+}
+
+.cant-btn:hover {
+    background-color: #ffd6df;
+    transform: translateY(-2px);
+}
+
+#cantidad-input {
+    width: 55px;
+    height: 35px;
+    text-align: center;
+    border: 2px solid var(--color-primary-accent);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    background-color: white;
+    color: var(--color-text-main);
+    box-shadow: var(--shadow);
+}
+
+
+.modal-mensaje input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--color-primary-accent);
+    border-radius: 8px;
+    background-color: white;
+    color: var(--color-text-main);
+    transition: var(--transition);
+}
+
+.modal-mensaje input:focus {
+    outline: none;
+    border-color: var(--color-secondary-accent);
+}
+
+
+#producto-modal,
+#producto-modal * {
+    color: var(--color-text-main) !important;
+}
+
+
+#modal-agregar {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+
+    background-color: var(--color-secondary-accent);
+    color: white !important;
+
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+#modal-agregar:hover:not(:disabled) {
+    transform: translateY(-3px);
+    opacity: 0.9;
+}
+
+#modal-agregar:disabled {
+    background-color: #e5c7ae;
+    color: var(--color-text-main) !important;
+    opacity: 1;
+    cursor: not-allowed;
+}
+.tamano-botones {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.tamano-btn {
+    padding: 8px 15px;
+    background-color: white;
+    border: 1px solid var(--color-primary);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+}
+
+.tamano-btn:hover {
+    background-color: var(--color-primary-accent);
+    color: white;
+}
+
+.tamano-btn.active {
+    background-color: var(--color-secondary-accent);
+    color: white;
+}
+
+#modal-confirmacion.modal {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#modal-confirmacion .modal-content {
+    background: #fff7ee;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 350px;
+}
+
+.btn-confirmacion {
+    background-color: var(--color-secondary-accent);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-confirmacion:hover {
+    opacity: 0.9;
+}
+

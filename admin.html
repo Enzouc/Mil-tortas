@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Panel Administrador — Mil Sabores</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <script>
+        if (localStorage.getItem("admin") !== "true") {
+            window.location.href = "admin-login.html";
+        }
+    </script>
+
+    <h1 class="titulo-admin">Panel de Administración</h1>
+
+    <div class="admin-top-buttons">
+        <a href="index.html" class="btn-top">
+            <i>🏠</i> Volver al Inicio
+        </a>
+
+        <a href="productos.html" class="btn-top">
+            <i>🎂</i> Ver Productos
+        </a>
+
+        <button id="admin-logout" class="btn-top btn-logout">
+            <i>🚪</i> Cerrar Sesión
+        </button>
+    </div>
+
+    <div id="admin-content">
+
+        <h2 class="subtitulo-admin">Resumen General</h2>
+
+        <div class="resumen-grid">
+
+            <div class="card">
+                <h3>Ventas Mensuales</h3>
+                <p class="monto">$1.200.000</p>
+            </div>
+
+            <div class="card">
+                <h3>Pedidos Activos</h3>
+                <p class="monto">34</p>
+            </div>
+
+            <div class="card">
+                <h3>Usuarios Registrados</h3>
+                <p class="monto">128</p>
+            </div>
+
+            <div class="card">
+                <h3>Productos en Stock</h3>
+                <p class="monto">82</p>
+            </div>
+
+        </div>
+
+        <h2 class="subtitulo-admin">Métodos de Pago Utilizados</h2>
+
+        <div class="pagos-grid">
+
+            <div class="pago-item">
+                <span class="icono">💳</span>
+                Tarjetas Bancarias
+            </div>
+
+            <div class="pago-item">
+                <span class="icono">💵</span>
+                Efectivo
+            </div>
+
+            <div class="pago-item">
+                <span class="icono">🟡</span>
+                Transferencia Bancaria
+            </div>
+
+            <div class="pago-item">
+                <span class="icono">📱</span>
+                Aplicaciones Digitales
+            </div>
+
+        </div>
+
+    </div>
+
+    <nav class="nav-bottom">
+        <a data-section="dashboard" class="activo">
+            <i>📊</i> Dashboard
+        </a>
+        <a data-section="productos">
+            <i>🍰</i> Productos
+        </a>
+        <a data-section="usuarios">
+            <i>👥</i> Usuarios
+        </a>
+        <a data-section="pedidos">
+            <i>🧾</i> Pedidos
+        </a>
+    </nav>
+
+    <script type="module" src="js/admin.ts"></script>
+
+    <script>
+        const logout = document.getElementById("admin-logout");
+        if (logout) {
+            logout.addEventListener("click", () => {
+                localStorage.removeItem("admin");
+                window.location.href = "admin-login.html";
+            });
+        }
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Panel Administrador — Mil Sabores</title>
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <script>
+        if (localStorage.getItem("admin") !== "true") {
+            window.location.href = "admin-login.html";
+        }
+    </script>
+
+    <h1 class="titulo-admin">Panel de Administración</h1>
+
+    <div class="admin-top-buttons">
+        <a href="index.html" class="btn-top">
+            <i>🏠</i> Volver al Inicio
+        </a>
+
+        <a href="productos.html" class="btn-top">
+            <i>🎂</i> Ver Productos
+        </a>
+
+        <button id="admin-logout" class="btn-top btn-logout">
+            <i>🚪</i> Cerrar Sesión
+        </button>
+    </div>
+
+    <div id="admin-content">
+
+        <h2 class="subtitulo-admin">Resumen General</h2>
+
+        <div class="resumen-grid">
+
+            <div class="card">
+                <h3>Ventas Mensuales</h3>
+                <p class="monto">$1.200.000</p>
+            </div>
+
+            <div class="card">
+                <h3>Pedidos Activos</h3>
+                <p class="monto">34</p>
+            </div>
+
+            <div class="card">
+                <h3>Usuarios Registrados</h3>
+                <p class="monto">128</p>
+            </div>
+
+            <div class="card">
+                <h3>Productos en Stock</h3>
+                <p class="monto">82</p>
+            </div>
+
+        </div>
+
+        <h2 class="subtitulo-admin">Métodos de Pago Utilizados</h2>
+
+        <div class="pagos-grid">
+
+            <div class="pago-item">
+                <span class="icono">💳</span>
+                Tarjetas Bancarias
+            </div>
+
+            <div class="pago-item">
+                <span class="icono">💵</span>
+                Efectivo
+            </div>
+
+            <div class="pago-item">
+                <span class="icono">🟡</span>
+                Transferencia Bancaria
+            </div>
+
+            <div class="pago-item">
+                <span class="icono">📱</span>
+                Aplicaciones Digitales
+            </div>
+
+        </div>
+
+    </div>
+
+    <nav class="nav-bottom">
+        <a data-section="dashboard" class="activo">
+            <i>📊</i> Dashboard
+        </a>
+        <a data-section="productos">
+            <i>🍰</i> Productos
+        </a>
+        <a data-section="usuarios">
+            <i>👥</i> Usuarios
+        </a>
+        <a data-section="pedidos">
+            <i>🧾</i> Pedidos
+        </a>
+    </nav>
+
+    <script type="module" src="js/admin.ts"></script>
+
+</body>
+</html>

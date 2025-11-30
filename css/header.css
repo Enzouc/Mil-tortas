@@ -1,0 +1,92 @@
+header {
+    background-color: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.logo h1 {
+    color: var(--color-secondary-accent);
+    font-size: 1.8rem;
+
+}
+
+.logo p {
+    color: var(--color-text-main);
+    font-size: 0.9rem;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--color-text-main);
+    font-weight: 500;
+    transition: var(--transition);
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--color-secondary-accent);
+    background-color: rgba(139, 69, 19, 0.1);
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin: 15px 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+#nav-pedidos {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+
+nav ul li a {
+  display: inline-block;
+  padding: 5px 10px;
+  line-height: 1.2;
+}
+
+#nav-pedidos-item {
+  display: none;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastelería Mil Sabores - Carrito</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/carrito.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>Pastelería Mil Sabores</h1>
+                <p>50 años endulzando Chile</p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+                    <li id="nav-admin" style="display:none;">
+                        <a href="admin.html">Administración</a>
+                    </li>
+
+                    <li id="nav-pedidos-item" style="display: none;">
+                        <a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a>
+                    </li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </header>
+
+    <main>
+        <section class="carrito-pagina" id="carrito-pagina">
+            <div class="container">
+                <h2>Tu Carrito de Compras</h2>
+                <div class="carrito-items" id="carrito-items">
+                </div>
+                <div class="carrito-total">
+                    <h3>Total: <span id="carrito-total-monto">$0</span></h3>
+                    <button class="finalizar-compra-btn" id="finalizar-compra-btn">Finalizar Compra</button>
+                    <a href="productos.html" class="seguir-comprando">Seguir comprando</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h3>Pastelería Mil Sabores</h3>
+                <p>50 años endulzando Chile desde 1974</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces rápidos</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="registro.html">Registro</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contáctanos</h3>
+                <p>Email: info@Milsabores.cl</p>
+                <p>Teléfono: +56 2 2345 6789</p>
+                <div class="social-icons">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="/js/app.ts"></script>
+    <script type="module" src="/js/carrito.ts"></script>
+
+</body>
+
+</html>
