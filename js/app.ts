@@ -34,8 +34,8 @@ function inicializarNavegacion(): void {
   });
 }
 
-function actualizarNavegacionUsuario(): void {
-  const usuario = storage.obtenerUsuario();
+async function actualizarNavegacionUsuario(): Promise<void> {
+  const usuario = await storage.obtenerUsuario();
   const linkRegistroPerfil = document.querySelector('header #nav-registro-perfil') as HTMLAnchorElement | null;
   const linkPedidos = document.getElementById('nav-pedidos') as HTMLAnchorElement | null;
   const pedidosItem = document.getElementById('nav-pedidos-item');
@@ -57,11 +57,11 @@ function actualizarNavegacionUsuario(): void {
   }
 }
 
-function cargarProductosDestacados(): void {
+async function cargarProductosDestacados(): Promise<void> {
   const grid = document.getElementById('destacados-grid') as HTMLDivElement | null;
   if (!grid) return;
 
-  const productosDestacados: Producto[] = productosData.obtenerTodos().slice(0, 4);
+  const productosDestacados: Producto[] = (await productosData.obtenerTodos()).slice(0, 4);
 
   if (productosDestacados.length === 0) {
     grid.innerHTML = '<p class="text-center">No hay productos destacados.</p>';
@@ -100,25 +100,27 @@ document.addEventListener('click', (e: MouseEvent) => {
     if (productoId) {
       const mensajeInput = document.getElementById(`mensaje-${productoId}`) as HTMLInputElement | null;
       const mensaje = mensajeInput ? mensajeInput.value.trim() : '';
-      carrito.agregarAlCarrito(productoId, mensaje);
+      void carrito.agregarAlCarrito(productoId, mensaje);
     }
   }
 });
 
 
 document.addEventListener('DOMContentLoaded', () => {
+  void (async () => {
   inicializarNavegacion();
   actualizarContadorCarrito();
-  actualizarNavegacionUsuario();
+  await actualizarNavegacionUsuario();
 
   if (document.getElementById('destacados-grid')) {
-    cargarProductosDestacados();
+    await cargarProductosDestacados();
   }
 
   if (document.getElementById('productos-grid')) {
     productos.inicializarBotones();
-    productos.cargarProductos(productosData.obtenerTodos());
-    productos.filtrarProductos();
+    const todos = await productosData.obtenerTodos();
+    await productos.cargarProductos(todos);
+    await productos.filtrarProductos();
   }
 
   if (document.getElementById('carrito-pagina')) {
@@ -127,10 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (document.getElementById('formulario-actualizacion')) {
-    inicializarPerfil();
+    await inicializarPerfil();
   }
 
   if (document.getElementById('formulario-registro')) {
     validacion.inicializar();
   }
+  })();
 });

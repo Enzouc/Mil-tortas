@@ -15,8 +15,8 @@ export function actualizarContadorCarrito(): void {
 
 export const carrito = {
   /** 🔥 Ahora con cantidad **/
-  agregarAlCarrito(id: string, mensaje: string = '', cantidad: number = 1): void {
-    const producto = productosData.obtenerPorId(id);
+  async agregarAlCarrito(id: string, mensaje: string = '', cantidad: number = 1): Promise<void> {
+    const producto = await productosData.obtenerPorId(id);
     if (!producto) return;
 
     let carritoActual = storage.obtenerCarrito() || [];
@@ -135,11 +135,11 @@ export const carrito = {
 
     const btnFinalizarCompra = document.getElementById('finalizar-compra-btn');
     if (btnFinalizarCompra) {
-      btnFinalizarCompra.addEventListener('click', () => this.finalizarCompra());
+      btnFinalizarCompra.addEventListener('click', () => void this.finalizarCompra());
     }
   },
 
-  finalizarCompra(): void {
+  async finalizarCompra(): Promise<void> {
     const carritoActual = storage.obtenerCarrito() || [];
     if (carritoActual.length === 0) {
       mostrarAlertaWeb('El carrito está vacío. Agrega productos antes de finalizar la compra.');
@@ -156,24 +156,16 @@ export const carrito = {
       estado: 'pendiente'
     };
 
-    if (typeof storagePedidos?.agregarPedido === 'function') {
-      storagePedidos.agregarPedido(nuevoPedido);
-    } else {
-      const prev = (storagePedidos && typeof storagePedidos.obtenerPedidos === 'function')
-        ? storagePedidos.obtenerPedidos()
-        : [];
-      prev.push(nuevoPedido);
-      if (storagePedidos && typeof storagePedidos.guardarPedidos === 'function') {
-        storagePedidos.guardarPedidos(prev);
-      } else {
-        localStorage.setItem('pedidos', JSON.stringify(prev));
-      }
+    try {
+      await storagePedidos.agregarPedido(nuevoPedido);
+      mostrarAlertaWeb('¡Compra realizada con éxito! Gracias por tu pedido.');
+      storage.limpiarCarrito();
+      this.actualizarVistaCarrito();
+      actualizarContadorCarrito();
+    } catch (error) {
+      console.error('No se pudo registrar el pedido en el backend.', error);
+      mostrarAlertaWeb('Hubo un problema al registrar tu pedido. Intenta nuevamente.');
     }
-
-    mostrarAlertaWeb('¡Compra realizada con éxito! Gracias por tu pedido.');
-    storage.limpiarCarrito();
-    this.actualizarVistaCarrito();
-    actualizarContadorCarrito();
   }
 };
 

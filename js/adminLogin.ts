@@ -1,21 +1,21 @@
 
+import { storage } from './storage';
+
 const form = document.getElementById("admin-login-form") as HTMLFormElement | null;
 const errorMsg = document.getElementById("admin-error") as HTMLParagraphElement | null;
 
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234";
-
 if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const user = (document.getElementById("admin-user") as HTMLInputElement).value;
-        const pass = (document.getElementById("admin-pass") as HTMLInputElement).value;
+        const email = (document.getElementById("admin-user") as HTMLInputElement).value;
+        const password = (document.getElementById("admin-pass") as HTMLInputElement).value;
 
-        if (user === ADMIN_USER && pass === ADMIN_PASS) {
-            localStorage.setItem("admin", "true");
+        try {
+            await storage.login(email, password);
             window.location.href = "admin.html";
-        } else {
+        } catch (error) {
+            console.error('Error al autenticar al administrador', error);
             if (errorMsg) errorMsg.style.display = "block";
         }
     });

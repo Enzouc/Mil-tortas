@@ -1,9 +1,10 @@
-import { storage } from './storage'; 
+import { storage } from './storage';
 import { mostrarAlertaWeb } from './app';
 import type { Usuario } from './types';
 
-export function inicializarPerfil(): void {
-  const usuario = storage.obtenerUsuario();
+export async function inicializarPerfil(): Promise<void> {
+  const usuarioIdParam = new URLSearchParams(window.location.search).get('usuarioId') || undefined;
+  const usuario = await storage.obtenerUsuario(usuarioIdParam);
 
   // Si no hay usuario guardado, redirige al registro
   if (!usuario) {
@@ -35,9 +36,9 @@ export function inicializarPerfil(): void {
 
   // Guardar cambios del perfil
   if (formulario) {
-    formulario.addEventListener('submit', (e: Event) => {
+    formulario.addEventListener('submit', async (e: Event) => {
       e.preventDefault();
-      
+
       const preferenciasSeleccionadas: string[] = [];
       const checkboxes = document.querySelectorAll('input[name="preferencias"]:checked') as NodeListOf<HTMLInputElement>;
       checkboxes.forEach(checkbox => preferenciasSeleccionadas.push(checkbox.value));
@@ -50,8 +51,13 @@ export function inicializarPerfil(): void {
         preferencias: preferenciasSeleccionadas.length > 0 ? preferenciasSeleccionadas : [],
       };
 
-      storage.guardarUsuario(usuarioActualizado);
-      mostrarAlertaWeb('¡Perfil actualizado con éxito!');
+      try {
+        await storage.guardarUsuario(usuarioActualizado);
+        mostrarAlertaWeb('¡Perfil actualizado con éxito!');
+      } catch (error) {
+        console.error('No se pudo actualizar el perfil en el backend.', error);
+        mostrarAlertaWeb('No se pudo actualizar tu perfil. Intenta nuevamente.');
+      }
     });
   }
 

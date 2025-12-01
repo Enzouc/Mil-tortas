@@ -1,107 +1,142 @@
-import type { CarritoItem, Usuario, Pedido } from './types';
+import type { CarritoItem, Pedido, Producto, Usuario } from './types';
 
-export const storage = {
+const API_BASE_URL = '/api/v1';
+let carritoEnMemoria: CarritoItem[] = [];
+let authToken: string | null = null;
+let usuarioActual: (Usuario & { id?: string }) | null = null;
 
-  obtenerCarrito(): CarritoItem[] {
-    try {
-      const carritoJSON = localStorage.getItem('carrito');
-      return carritoJSON ? JSON.parse(carritoJSON) : [];
-    } catch {
-      console.error('Error al leer el carrito del almacenamiento.');
-      return [];
-    }
+async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+    ...(options.headers || {}),
+  };
+
+  if (authToken) {
+    headers['Authorization'] = `Bearer ${authToken}`;
+  }
+
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Error ${response.status}: ${errorText || response.statusText}`);
+  }
+
+  if (response.status === 204) {
+    return null as T;
+  }
+
+  return await response.json() as T;
+}
+
+export const productosApi = {
+  async obtenerTodos(): Promise<Producto[]> {
+    return apiRequest<Producto[]>('/productos');
   },
 
- 
-  guardarCarrito(carrito: CarritoItem[]): void {
-    try {
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-    } catch {
-      console.error('Error al guardar el carrito en el almacenamiento.');
-    }
-  },
-
-
-  limpiarCarrito(): void {
-    localStorage.removeItem('carrito');
-  },
-
-
-  obtenerUsuario(): Usuario | null {
-    try {
-      const usuarioJSON = localStorage.getItem('usuario');
-      const usuario = usuarioJSON ? JSON.parse(usuarioJSON) : null;
-      if (usuario && !Array.isArray(usuario.preferencias)) {
-        usuario.preferencias = [];
-      }
-      return usuario;
-    } catch {
-      console.error('Error al leer el usuario del almacenamiento.');
-      return null;
-    }
-  },
-
-
-  guardarUsuario(usuario: Usuario): void {
-    try {
-      const usuarioSeguro: Usuario = {
-        ...usuario,
-        preferencias: Array.isArray(usuario.preferencias)
-          ? usuario.preferencias
-          : [],
-      };
-      localStorage.setItem('usuario', JSON.stringify(usuarioSeguro));
-    } catch {
-      console.error('Error al guardar el usuario en el almacenamiento.');
-    }
-  },
-
-
-  limpiarUsuario(): void {
-    localStorage.removeItem('usuario');
+  async crearProducto(producto: Producto): Promise<Producto> {
+    return apiRequest<Producto>('/productos', {
+      method: 'POST',
+      body: JSON.stringify(producto),
+    });
   },
 };
 
+export const usuariosApi = {
+  async obtenerTodos(): Promise<Usuario[]> {
+    return apiRequest<Usuario[]>('/usuarios');
+  },
+
+  async obtenerPorId(id: string): Promise<Usuario> {
+    return apiRequest<Usuario>(`/usuarios/${id}`);
+  },
+
+  async eliminar(id: string): Promise<void> {
+    await apiRequest<void>(`/usuarios/${id}`, { method: 'DELETE' });
+  },
+
+  async actualizar(id: string, usuario: Usuario): Promise<Usuario> {
+    return apiRequest<Usuario>(`/usuarios/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(usuario),
+    });
+  },
+};
 
 export const storagePedidos = {
- 
-  obtenerPedidos(): Pedido[] {
-    try {
-      const pedidosJSON = localStorage.getItem('pedidos');
-      return pedidosJSON ? JSON.parse(pedidosJSON) : [];
-    } catch {
-      console.error('Error al leer los pedidos del almacenamiento.');
-      return [];
-    }
+  async obtenerPedidos(): Promise<Pedido[]> {
+    return apiRequest<Pedido[]>('/pedidos');
   },
 
-  
-  guardarPedidos(pedidos: Pedido[]): void {
-    try {
-      localStorage.setItem('pedidos', JSON.stringify(pedidos));
-    } catch {
-      console.error('Error al guardar los pedidos en el almacenamiento.');
-    }
-  },
-
- 
-  agregarPedido(nuevoPedido: Pedido): void {
-    try {
-      const pedidos = this.obtenerPedidos();
-      pedidos.push(nuevoPedido);
-      this.guardarPedidos(pedidos);
-    } catch {
-      console.error('Error al agregar un nuevo pedido.');
-    }
-  },
-
-  
-  limpiarPedidos(): void {
-    localStorage.removeItem('pedidos');
+  async agregarPedido(nuevoPedido: Pedido): Promise<Pedido> {
+    return apiRequest<Pedido>('/pedidos', {
+      method: 'POST',
+      body: JSON.stringify(nuevoPedido),
+    });
   },
 };
 
-export const ADMIN_CREDENCIALES = {
-  email: "admin@milsabores.cl",
-  password: "admin123"
+export const storage = {
+  obtenerCarrito(): CarritoItem[] {
+    return [...carritoEnMemoria];
+  },
+
+  guardarCarrito(carrito: CarritoItem[]): void {
+    carritoEnMemoria = [...carrito];
+  },
+
+  limpiarCarrito(): void {
+    carritoEnMemoria = [];
+  },
+
+  async login(email: string, password: string): Promise<{ token?: string; usuario?: Usuario & { id?: string } }> {
+    const resultado = await apiRequest<{ token?: string; usuario?: Usuario & { id?: string } }>('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+
+    authToken = resultado.token ?? null;
+    if (resultado.usuario) {
+      usuarioActual = resultado.usuario;
+    }
+
+    return resultado;
+  },
+
+  getToken(): string | null {
+    return authToken;
+  },
+
+  setUsuario(usuario: Usuario & { id?: string } | null): void {
+    usuarioActual = usuario;
+  },
+
+  async obtenerUsuario(id?: string): Promise<(Usuario & { id?: string }) | null> {
+    const userId = id || usuarioActual?.id;
+    if (!userId) return null;
+
+    const usuario = await usuariosApi.obtenerPorId(userId);
+    usuarioActual = usuario;
+    return usuario;
+  },
+
+  async guardarUsuario(usuario: Usuario & { id?: string }): Promise<Usuario> {
+    const targetId = usuario.id || usuarioActual?.id;
+    if (!targetId) {
+      throw new Error('No hay un usuario autenticado para guardar.');
+    }
+
+    const usuarioActualizado = await usuariosApi.actualizar(targetId, usuario);
+    usuarioActual = usuarioActualizado;
+    return usuarioActualizado;
+  },
+
+  limpiarUsuario(): void {
+    usuarioActual = null;
+    authToken = null;
+  },
 };
+

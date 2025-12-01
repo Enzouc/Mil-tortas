@@ -15,11 +15,12 @@ export interface CarritoItem extends Producto {
 }
 
 export interface Usuario {
+  id?: string;
   nombre: string;
   email: string;
   fechaNacimiento: string;
   codigoPromocional?: string;
-  preferencias?: string[]; 
+  preferencias?: string[];
 }
 
 
