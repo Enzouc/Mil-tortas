@@ -30,9 +30,9 @@ export const productosData = {
     },
 };
 
-// === LÓGICA PARA productos.html (cliente normal) ===
+// === LÓGICA PARA productos.html (CLIENTE NORMAL) ===
 export const productos = {
-    async cargarProductos(lista: HTMLElement, todos: Producto[]) {
+    async cargarProductosCliente(lista: HTMLElement, todos: Producto[]) {
         lista.innerHTML = "";
 
         todos.forEach(p => {
@@ -51,16 +51,16 @@ export const productos = {
     },
 
     inicializarBotones() {
-        // si tienes lógica de botones, va aquí
+        console.log("Botones inicializados");
     },
 
     async filtrarProductos() {
-        // si tienes filtros, van aquí
+        console.log("Filtros aplicados");
     },
 };
 
-// === FUNCIÓN PARA ADMIN ===
-export async function cargarProductos(content: HTMLElement) {
+// === LÓGICA PARA ADMIN (admin.html) ===
+export async function cargarProductosAdmin(content: HTMLElement) {
     content.innerHTML = `
         <h2>Gestión de Productos</h2>
         <button id="btn-agregar" class="btn-agregar">➕ Agregar Producto</button>
@@ -100,8 +100,6 @@ export async function cargarProductos(content: HTMLElement) {
                 </td>
             </tr>
         `).join("");
-
-        // editar y eliminar aquí...
     }
 
     listar();
