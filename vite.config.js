@@ -11,6 +11,8 @@ export default defineConfig({
         contacto: resolve(__dirname, 'contacto.html'),
         perfil: resolve(__dirname, 'perfil.html'),
         registro: resolve(__dirname, 'registro.html'),
+        login: resolve(__dirname, 'login.html'),
+        admin: resolve(__dirname, 'admin.html'),
       },
     },
   },

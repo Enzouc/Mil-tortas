@@ -1,5 +1,5 @@
-import { storage } from "./storage.js";
-import { mostrarAlertaWeb } from "./app.js";
+import { storage } from "./storage";
+import { mostrarAlertaWeb } from "./app";
 
 document.addEventListener("DOMContentLoaded", () => {
 

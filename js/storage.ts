@@ -133,6 +133,10 @@ export const storage = {
     return resultado;
   },
 
+  async loginPorNombre(usuario: string, password: string) {
+    return this.login(usuario, password);
+  },
+
   /* ---------------------
       GETTERS
   ----------------------*/

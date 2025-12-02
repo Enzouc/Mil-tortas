@@ -1,11 +1,11 @@
-import { cargarProductos } from "./productos.js";
+import { cargarProductos } from "./productos";
 
 // --- Validación de rol ---
 const usuarioString = localStorage.getItem("usuario");
 if (!usuarioString) {
     window.location.href = "login.html";
 }
-const usuario = JSON.parse(usuarioString);
+const usuario = JSON.parse(usuarioString!);
 if (usuario.rol !== "ADMIN") {
     window.location.href = "login.html";
 }

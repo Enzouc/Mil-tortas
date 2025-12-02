@@ -1,6 +1,4 @@
-import { storage } from './storage';
 import { mostrarAlertaWeb } from './app';
-import type { Usuario } from './types';
 
 interface ValidationRule {
   id: string;
@@ -94,7 +92,6 @@ export const validacion = {
     if (esFormularioValido) {
       const nombre = (document.getElementById('nombre') as HTMLInputElement).value.trim();
       const email = (document.getElementById('email') as HTMLInputElement).value.trim();
-      const fechaNacimiento = (document.getElementById('fecha-nacimiento') as HTMLInputElement).value;
       const codigoPromocional = (document.getElementById('codigo-promocional') as HTMLInputElement).value.trim().toUpperCase();
 
       // 🔥 Enviar registro al backend

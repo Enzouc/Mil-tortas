@@ -32,7 +32,10 @@ export const productosData = {
 
 // === LÓGICA PARA productos.html (cliente normal) ===
 export const productos = {
-    async cargarProductos(lista: HTMLElement, todos: Producto[]) {
+    async cargarProductos(todos: Producto[]) {
+        const lista = document.getElementById("productos-grid") as HTMLDivElement | null;
+        if (!lista) return;
+
         lista.innerHTML = "";
 
         todos.forEach(p => {
