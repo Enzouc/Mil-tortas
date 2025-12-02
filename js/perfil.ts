@@ -1,29 +1,28 @@
-import { storage } from './storage'; 
+import { storage } from './storage';
 import { mostrarAlertaWeb } from './app';
 import type { Usuario } from './types';
 
-export function inicializarPerfil(): void {
-  const usuario = storage.obtenerUsuario();
+export async function inicializarPerfil(): Promise<void> {
 
-  // Si no hay usuario guardado, redirige al registro
+
+  const usuario = await storage.obtenerUsuario();
+
   if (!usuario) {
     window.location.href = 'registro.html';
     return;
   }
 
-  // Elementos del DOM
   const nombreInput = document.getElementById('nombre') as HTMLInputElement | null;
   const emailInput = document.getElementById('email') as HTMLInputElement | null;
   const fechaInput = document.getElementById('fecha-nacimiento') as HTMLInputElement | null;
   const formulario = document.getElementById('formulario-actualizacion') as HTMLFormElement | null;
   const btnCerrarSesion = document.getElementById('btn-cerrar-sesion') as HTMLButtonElement | null;
 
-  // Rellena los datos actuales
   if (nombreInput) nombreInput.value = usuario.nombre || '';
-  if (emailInput) emailInput.value = usuario.email || '';
+  if (emailInput) emailInput.value = usuario.correo || '';        
   if (fechaInput) fechaInput.value = usuario.fechaNacimiento || '';
 
-  // Marca las preferencias guardadas
+
   if (Array.isArray(usuario.preferencias)) {
     const checkboxes = document.querySelectorAll('input[name="preferencias"]') as NodeListOf<HTMLInputElement>;
     checkboxes.forEach(checkbox => {
@@ -33,11 +32,10 @@ export function inicializarPerfil(): void {
     });
   }
 
-  // Guardar cambios del perfil
   if (formulario) {
-    formulario.addEventListener('submit', (e: Event) => {
+    formulario.addEventListener('submit', async (e: Event) => {
       e.preventDefault();
-      
+
       const preferenciasSeleccionadas: string[] = [];
       const checkboxes = document.querySelectorAll('input[name="preferencias"]:checked') as NodeListOf<HTMLInputElement>;
       checkboxes.forEach(checkbox => preferenciasSeleccionadas.push(checkbox.value));
@@ -45,13 +43,18 @@ export function inicializarPerfil(): void {
       const usuarioActualizado: Usuario = {
         ...usuario,
         nombre: nombreInput?.value || usuario.nombre,
-        email: emailInput?.value || usuario.email,
+        correo: emailInput?.value || usuario.correo,
         fechaNacimiento: fechaInput?.value || usuario.fechaNacimiento,
-        preferencias: preferenciasSeleccionadas.length > 0 ? preferenciasSeleccionadas : [],
+        preferencias: preferenciasSeleccionadas
       };
 
-      storage.guardarUsuario(usuarioActualizado);
-      mostrarAlertaWeb('¡Perfil actualizado con éxito!');
+      try {
+        await storage.guardarUsuario(usuarioActualizado);
+        mostrarAlertaWeb('¡Perfil actualizado con éxito!');
+      } catch (error) {
+        console.error('No se pudo actualizar el perfil en el backend.', error);
+        mostrarAlertaWeb('No se pudo actualizar tu perfil. Intenta nuevamente.');
+      }
     });
   }
 

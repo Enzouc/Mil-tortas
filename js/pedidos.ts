@@ -19,18 +19,21 @@ function crearHtmlPedido(pedido: Pedido): string {
   `;
 }
 
-function mostrarPedidos(): void {
+async function mostrarPedidos(): Promise<void> {
   const contenedor = document.getElementById('lista-pedidos') as HTMLDivElement | null;
   if (!contenedor) return;
 
-  const pedidos = storagePedidos.obtenerPedidos();
+  const pedidos = await storagePedidos.obtenerPedidos();
 
   if (!pedidos || pedidos.length === 0) {
-    contenedor.innerHTML = `<p class="text-center">No tienes pedidos registrados.</p>`;
+    contenedor.innerHTML = `<p class="no-pedidos">No tienes pedidos aún.</p>`;
     return;
   }
 
   contenedor.innerHTML = pedidos.map(crearHtmlPedido).join('');
 }
 
-document.addEventListener('DOMContentLoaded', mostrarPedidos);
+
+document.addEventListener('DOMContentLoaded', () => {
+  mostrarPedidos();
+});

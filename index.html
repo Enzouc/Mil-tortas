@@ -9,28 +9,7 @@
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/productos.css">
-  <style>
-    #nav-pedidos {
-      display: none;
-    }
-
-    header nav ul li {
-      display: flex;
-      align-items: center;
-    }
-
-    header nav ul li a {
-      text-decoration: none;
-      color: var(--color-text-main);
-      font-weight: 500;
-      transition: var(--transition);
-      padding: 5px 10px;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-  </style>
+  
 </head>
 
 <body>
@@ -45,13 +24,18 @@
           <li><a href="index.html" class="active">Inicio</a></li>
           <li><a href="productos.html">Productos</a></li>
           <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-          <li id="nav-admin" style="display:none;">
-            <a href="admin.html">Administración</a>
-          </li>
 
-          <li id="nav-pedidos-item"><a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a></li>
+          <li id="nav-login"><a href="login.html">Ingresar</a></li>
+          <li id="nav-perfil" style="display:none;"><a href="perfil.html">Mi Perfil</a></li>
+          <li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesión</a></li>
+
+          <li id="nav-admin" style="display:none;"><a href="admin.html">Administración</a></li>
+
+          <li id="nav-pedidos-item"><a href="pedidos.html" id="nav-pedidos" style="display:none;">Mis Pedidos</a></li>
+
           <li><a href="contacto.html">Contacto</a></li>
           <li><a href="carrito.html" id="carrito-link">Carrito (<span id="contador-carrito">0</span>)</a></li>
+
         </ul>
       </nav>
     </div>
@@ -128,21 +112,42 @@
   </footer>
 
   <script type="module" src="/js/app.ts"></script>
+<script type="module">
+  import { storage } from './js/storage.js';
 
-  <script type="module">
-    import { storage } from './js/storage.js';
-    const navPedidos = document.getElementById('nav-pedidos');
-    const navPedidosLi = document.getElementById('nav-pedidos-li');
-    const usuario = storage.obtenerUsuario();
+  async function inicializarNav() {
+    const usuario = await storage.obtenerUsuario(); // ⬅️ IMPORTANTE: await
 
-    if (usuario && navPedidos && navPedidosLi) {
-      navPedidos.style.display = 'inline-flex';
-      navPedidosLi.style.display = 'flex';
-      navPedidosLi.style.alignItems = 'center';
-    } else if (navPedidosLi) {
-      navPedidosLi.style.display = 'none';
+    const navLogin = document.getElementById("nav-login");
+    const navPerfil = document.getElementById("nav-perfil");
+    const navLogout = document.getElementById("nav-logout");
+    const navPedidos = document.getElementById("nav-pedidos");
+    const navPedidosLi = document.getElementById("nav-pedidos-item");
+
+    if (usuario) {
+      navLogin.style.display = "none";
+      navPerfil.style.display = "inline-flex";
+      navLogout.style.display = "inline-flex";
+      navPedidos.style.display = "inline-flex";
+      navPedidosLi.style.display = "flex";
+    } else {
+      navLogin.style.display = "inline-flex";
+      navPerfil.style.display = "none";
+      navLogout.style.display = "none";
+      navPedidos.style.display = "none";
+      navPedidosLi.style.display = "none";
     }
-  </script>
+
+    document.getElementById("logout-btn")?.addEventListener("click", () => {
+      storage.limpiarUsuario();
+      window.location.href = "index.html";
+    });
+  }
+
+  inicializarNav();
+</script>
+
+
 </body>
 
 </html>

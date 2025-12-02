@@ -1,22 +1,22 @@
+import { storage } from './storage';
 
 const form = document.getElementById("admin-login-form") as HTMLFormElement | null;
 const errorMsg = document.getElementById("admin-error") as HTMLParagraphElement | null;
 
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234";
-
 if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const user = (document.getElementById("admin-user") as HTMLInputElement).value;
-        const pass = (document.getElementById("admin-pass") as HTMLInputElement).value;
+        const username = (document.getElementById("admin-user") as HTMLInputElement).value.trim();
+        const password = (document.getElementById("admin-pass") as HTMLInputElement).value.trim();
 
-        if (user === ADMIN_USER && pass === ADMIN_PASS) {
-            localStorage.setItem("admin", "true");
-            window.location.href = "admin.html";
-        } else {
+        const resultado = await storage.loginPorNombre(username, password);
+
+        if (!resultado || !resultado.token || resultado.usuario?.rol !== "ADMIN") {
             if (errorMsg) errorMsg.style.display = "block";
+            return;
         }
+
+        window.location.href = "admin.html";
     });
 }

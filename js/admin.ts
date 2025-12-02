@@ -1,54 +1,65 @@
-// Obtiene el contenedor donde van las secciones
+import { cargarProductos } from "./productos.js";
+
+// --- Validación de rol ---
+const usuarioString = localStorage.getItem("usuario");
+if (!usuarioString) {
+    window.location.href = "login.html";
+}
+const usuario = JSON.parse(usuarioString);
+if (usuario.rol !== "ADMIN") {
+    window.location.href = "login.html";
+}
+
+// --- Elementos ---
 const content = document.getElementById("admin-content");
+const botones = document.querySelectorAll(".nav-bottom a");
 
-// Selecciona todos los botones del menú
-const buttons = document.querySelectorAll(".admin-menu button");
+// --- Navegación ---
+botones.forEach(btn => {
+    btn.addEventListener("click", () => {
+        botones.forEach(b => b.classList.remove("activo"));
+        btn.classList.add("activo");
 
-// Maneja clic en cada botón
-buttons.forEach(btn => {
-btn.addEventListener("click", () => {
-    const section = btn.getAttribute("data-section");
-    cargarSeccion(section);
+        const section = btn.getAttribute("data-section");
+        cargarSeccion(section);
+    });
 });
-});
 
-// Función para cargar distintas secciones
+// --- Cargar secciones ---
 function cargarSeccion(nombre: string | null) {
-if (!content) return;
+    if (!content) return;
 
-switch (nombre) {
-    case "dashboard":
-    content.innerHTML = `
-        <h2>Dashboard</h2>
-        <p>Resumen general de la tienda.</p>
-    `;
-    break;
+    switch (nombre) {
+        case "dashboard":
+            content.innerHTML = `
+                <h2>Dashboard</h2>
+                <p>Vista general.</p>
+            `;
+            break;
 
-    case "productos":
-    content.innerHTML = `
-        <h2>Gestión de Productos</h2>
-        <p>Aquí podrás ver, editar y eliminar productos.</p>
-    `;
-    break;
+        case "productos":
+            cargarProductos(content);
+            break;
 
-    case "pedidos":
-    content.innerHTML = `
-        <h2>Gestión de Pedidos</h2>
-        <p>Aquí podrás revisar los pedidos realizados.</p>
-    `;
-    break;
+        case "usuarios":
+            content.innerHTML = "<h2>Gestión de Usuarios</h2>";
+            break;
 
-    case "usuarios":
-    content.innerHTML = `
-        <h2>Gestión de Usuarios</h2>
-        <p>Lista de usuarios registrados.</p>
-    `;
-    break;
+        case "pedidos":
+            content.innerHTML = "<h2>Gestión de Pedidos</h2>";
+            break;
 
-    default:
-    content.innerHTML = `
-        <h2>Bienvenido al Panel Admin</h2>
-        <p>Selecciona una opción del menú.</p>
-    `;
+        default:
+            content.innerHTML = "<h2>Bienvenido Admin</h2>";
+    }
 }
-}
+
+// Cargar dashboard al iniciar
+cargarSeccion("dashboard");
+
+// --- Logout ---
+document.getElementById("admin-logout")?.addEventListener("click", () => {
+    localStorage.removeItem("usuario");
+    localStorage.removeItem("token");
+    window.location.href = "login.html";
+});

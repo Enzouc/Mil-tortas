@@ -63,7 +63,7 @@ export const validacion = {
         { check: (value: string) => value && value.toUpperCase() !== 'FELICES50', message: 'El código promocional no es válido' }
       ]
     }
-  ] as ValidationRule[], 
+  ] as ValidationRule[],
   /**
    * @param {Event} e 
    */
@@ -97,14 +97,33 @@ export const validacion = {
       const fechaNacimiento = (document.getElementById('fecha-nacimiento') as HTMLInputElement).value;
       const codigoPromocional = (document.getElementById('codigo-promocional') as HTMLInputElement).value.trim().toUpperCase();
 
-      const nuevoUsuario: Usuario = { nombre, email, fechaNacimiento, codigoPromocional };
+      // 🔥 Enviar registro al backend
+      fetch("http://localhost:8080/api/v1/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: nombre,
+          correo: email,
+          password: (document.getElementById('password') as HTMLInputElement).value,
+          codigoPromocional: codigoPromocional || null
+        })
+      })
+        .then(async res => {
+          if (!res.ok) {
+            const err = await res.text();
+            throw new Error(err || "Error en el registro");
+          }
 
-      storage.guardarUsuario(nuevoUsuario);
-      mostrarAlertaWeb('¡Registro exitoso! Serás dirigido a tu perfil.');
-      this.aplicarDescuentos(email, new Date(fechaNacimiento), codigoPromocional);
+          mostrarAlertaWeb("¡Registro exitoso! Ahora inicia sesión.");
+          (e.target as HTMLFormElement).reset();
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 1500);
+        })
+        .catch(err => {
+          mostrarAlertaWeb("Error: " + err.message);
+        });
 
-      (e.target as HTMLFormElement).reset();
-      window.location.href = 'perfil.html';
     }
   },
 

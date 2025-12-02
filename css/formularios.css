@@ -71,3 +71,50 @@
     border-radius: 8px;
     box-shadow: var(--shadow);
 }
+
+/* Fondo oscuro */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Ocultar modal */
+.hidden {
+    display: none;
+}
+
+/* Caja del mensaje */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    min-width: 280px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+#modal-mensaje {
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#modal-cerrar {
+    background: #8b4513;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#modal-cerrar:hover {
+    background: #6f3610;
+}

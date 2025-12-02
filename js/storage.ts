@@ -1,107 +1,180 @@
-import type { CarritoItem, Usuario, Pedido } from './types';
+import type { CarritoItem, Pedido, Producto, Usuario } from "./types";
 
-export const storage = {
+const API_BASE_URL = "http://localhost:8080/api/v1";
 
-  obtenerCarrito(): CarritoItem[] {
-    try {
-      const carritoJSON = localStorage.getItem('carrito');
-      return carritoJSON ? JSON.parse(carritoJSON) : [];
-    } catch {
-      console.error('Error al leer el carrito del almacenamiento.');
-      return [];
-    }
+let carritoEnMemoria: CarritoItem[] = [];
+let authToken: string | null = localStorage.getItem("token");
+let usuarioActual: (Usuario & { id?: string }) | null =
+  JSON.parse(localStorage.getItem("usuario") || "null");
+
+/* -------------------------------------------------------
+   🔹 FUNCION GLOBAL PARA LLAMAR A LA API
+-------------------------------------------------------- */
+export async function apiRequest<T>(
+  path: string,
+  options: RequestInit = {}
+): Promise<T> {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...(options.headers as Record<string, string>),
+  };
+
+  // Agregar token si existe
+  const token = authToken || localStorage.getItem("token");
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
+  const response = await fetch(API_BASE_URL + path, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Error ${response.status}: ${errorText}`);
+  }
+
+  if (response.status === 204) {
+    return null as T;
+  }
+
+  return (await response.json()) as T;
+}
+
+/* -------------------------------------------------------
+   🔹 PRODUCTOS API
+-------------------------------------------------------- */
+export const productosApi = {
+  async obtenerTodos(): Promise<Producto[]> {
+    return apiRequest<Producto[]>("/productos");
   },
 
- 
-  guardarCarrito(carrito: CarritoItem[]): void {
-    try {
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-    } catch {
-      console.error('Error al guardar el carrito en el almacenamiento.');
-    }
-  },
-
-
-  limpiarCarrito(): void {
-    localStorage.removeItem('carrito');
-  },
-
-
-  obtenerUsuario(): Usuario | null {
-    try {
-      const usuarioJSON = localStorage.getItem('usuario');
-      const usuario = usuarioJSON ? JSON.parse(usuarioJSON) : null;
-      if (usuario && !Array.isArray(usuario.preferencias)) {
-        usuario.preferencias = [];
-      }
-      return usuario;
-    } catch {
-      console.error('Error al leer el usuario del almacenamiento.');
-      return null;
-    }
-  },
-
-
-  guardarUsuario(usuario: Usuario): void {
-    try {
-      const usuarioSeguro: Usuario = {
-        ...usuario,
-        preferencias: Array.isArray(usuario.preferencias)
-          ? usuario.preferencias
-          : [],
-      };
-      localStorage.setItem('usuario', JSON.stringify(usuarioSeguro));
-    } catch {
-      console.error('Error al guardar el usuario en el almacenamiento.');
-    }
-  },
-
-
-  limpiarUsuario(): void {
-    localStorage.removeItem('usuario');
+  async crearProducto(producto: Producto): Promise<Producto> {
+    return apiRequest<Producto>("/productos", {
+      method: "POST",
+      body: JSON.stringify(producto),
+    });
   },
 };
 
+/* -------------------------------------------------------
+   🔹 USUARIOS API
+-------------------------------------------------------- */
+export const usuariosApi = {
+  async obtenerTodos(): Promise<Usuario[]> {
+    return apiRequest<Usuario[]>("/usuarios");
+  },
 
+  async obtenerPorId(id: string): Promise<Usuario> {
+    return apiRequest<Usuario>(`/usuarios/${id}`);
+  },
+
+  async eliminar(id: string): Promise<void> {
+    return apiRequest<void>(`/usuarios/${id}`, { method: "DELETE" });
+  },
+
+  async actualizar(id: string, usuario: Usuario): Promise<Usuario> {
+    return apiRequest<Usuario>(`/usuarios/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(usuario),
+    });
+  },
+};
+
+/* -------------------------------------------------------
+   🔹 PEDIDOS API
+-------------------------------------------------------- */
 export const storagePedidos = {
- 
-  obtenerPedidos(): Pedido[] {
-    try {
-      const pedidosJSON = localStorage.getItem('pedidos');
-      return pedidosJSON ? JSON.parse(pedidosJSON) : [];
-    } catch {
-      console.error('Error al leer los pedidos del almacenamiento.');
-      return [];
-    }
+  async obtenerPedidos(): Promise<Pedido[]> {
+    return apiRequest<Pedido[]>("/pedidos");
   },
 
-  
-  guardarPedidos(pedidos: Pedido[]): void {
-    try {
-      localStorage.setItem('pedidos', JSON.stringify(pedidos));
-    } catch {
-      console.error('Error al guardar los pedidos en el almacenamiento.');
-    }
-  },
-
- 
-  agregarPedido(nuevoPedido: Pedido): void {
-    try {
-      const pedidos = this.obtenerPedidos();
-      pedidos.push(nuevoPedido);
-      this.guardarPedidos(pedidos);
-    } catch {
-      console.error('Error al agregar un nuevo pedido.');
-    }
-  },
-
-  
-  limpiarPedidos(): void {
-    localStorage.removeItem('pedidos');
+  async agregarPedido(nuevoPedido: Pedido): Promise<Pedido> {
+    return apiRequest<Pedido>("/pedidos", {
+      method: "POST",
+      body: JSON.stringify(nuevoPedido),
+    });
   },
 };
 
-export const ADMIN_CREDENCIALES = {
-  email: "admin@milsabores.cl",
-  password: "admin123"
+/* -------------------------------------------------------
+   🔹 STORAGE GENERAL (LOGIN, TOKEN, USUARIO)
+-------------------------------------------------------- */
+export const storage = {
+  obtenerCarrito(): CarritoItem[] {
+    return [...carritoEnMemoria];
+  },
+
+  guardarCarrito(carrito: CarritoItem[]): void {
+    carritoEnMemoria = [...carrito];
+  },
+
+  limpiarCarrito() {
+    carritoEnMemoria = [];
+  },
+
+  /* ---------------------
+      LOGIN
+  ----------------------*/
+  async login(correo: string, password: string) {
+    const resultado = await apiRequest<{ token: string; usuario: Usuario }>(
+      "/auth/login",
+      {
+        method: "POST",
+        body: JSON.stringify({ correo, password }),
+      }
+    );
+
+    authToken = resultado.token;
+    usuarioActual = resultado.usuario;
+
+    localStorage.setItem("token", resultado.token);
+    localStorage.setItem("usuario", JSON.stringify(usuarioActual));
+
+    return resultado;
+  },
+
+  /* ---------------------
+      GETTERS
+  ----------------------*/
+  getToken(): string | null {
+    return authToken || localStorage.getItem("token");
+  },
+
+  obtenerUsuarioGuardado() {
+    return usuarioActual;
+  },
+
+  async obtenerUsuario() {
+    const usuario = await apiRequest<Usuario>("/usuarios/me");
+
+    usuarioActual = usuario;
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+
+    return usuario;
+  },
+
+  /* ---------------------
+      ACTUALIZACIÓN
+  ----------------------*/
+  async guardarUsuario(usuario: Usuario & { id?: string }) {
+    const id = usuario.id || usuarioActual?.id;
+    if (!id) throw new Error("No hay usuario para actualizar.");
+
+    const actualizado = await usuariosApi.actualizar(id, usuario);
+
+    usuarioActual = actualizado;
+    localStorage.setItem("usuario", JSON.stringify(actualizado));
+
+    return actualizado;
+  },
+
+  /* ---------------------
+      LOGOUT
+  ----------------------*/
+  limpiarUsuario() {
+    usuarioActual = null;
+    authToken = null;
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+  },
 };

@@ -6,18 +6,24 @@ import { validacion } from './validacion';
 import type { Producto } from './types';
 
 export function mostrarAlertaWeb(mensaje: string): void {
-  const modal = document.getElementById("modal-confirmacion") as HTMLDivElement;
-  const texto = document.getElementById("modal-confirmacion-texto") as HTMLElement;
-  const cerrarBtn = document.getElementById("modal-confirmacion-cerrar") as HTMLButtonElement;
+  const modal = document.getElementById("modal-alerta") as HTMLDivElement | null;
+  const texto = document.getElementById("modal-mensaje") as HTMLElement | null;
+  const cerrarBtn = document.getElementById("modal-cerrar") as HTMLButtonElement | null;
+
+  if (!modal || !texto || !cerrarBtn) {
+    console.error("❌ Error: No se encontró el modal en el DOM.");
+    alert(mensaje);  
+    return;
+  }
 
   texto.textContent = mensaje;
-
-  modal.classList.remove("hidden");
+  modal.classList.add("visible");
 
   cerrarBtn.onclick = () => {
-    modal.classList.add("hidden");
+    modal.classList.remove("visible");
   };
 }
+
 
 function inicializarNavegacion(): void {
   const currentPage = window.location.href.split('/').pop()?.split('?')[0] || '';
@@ -34,8 +40,8 @@ function inicializarNavegacion(): void {
   });
 }
 
-function actualizarNavegacionUsuario(): void {
-  const usuario = storage.obtenerUsuario();
+async function actualizarNavegacionUsuario(): Promise<void> {
+  const usuario = await storage.obtenerUsuario();
   const linkRegistroPerfil = document.querySelector('header #nav-registro-perfil') as HTMLAnchorElement | null;
   const linkPedidos = document.getElementById('nav-pedidos') as HTMLAnchorElement | null;
   const pedidosItem = document.getElementById('nav-pedidos-item');
@@ -57,11 +63,11 @@ function actualizarNavegacionUsuario(): void {
   }
 }
 
-function cargarProductosDestacados(): void {
+async function cargarProductosDestacados(): Promise<void> {
   const grid = document.getElementById('destacados-grid') as HTMLDivElement | null;
   if (!grid) return;
 
-  const productosDestacados: Producto[] = productosData.obtenerTodos().slice(0, 4);
+  const productosDestacados: Producto[] = (await productosData.obtenerTodos()).slice(0, 4);
 
   if (productosDestacados.length === 0) {
     grid.innerHTML = '<p class="text-center">No hay productos destacados.</p>';
@@ -100,37 +106,53 @@ document.addEventListener('click', (e: MouseEvent) => {
     if (productoId) {
       const mensajeInput = document.getElementById(`mensaje-${productoId}`) as HTMLInputElement | null;
       const mensaje = mensajeInput ? mensajeInput.value.trim() : '';
-      carrito.agregarAlCarrito(productoId, mensaje);
+      void carrito.agregarAlCarrito(productoId, mensaje);
     }
   }
 });
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  inicializarNavegacion();
-  actualizarContadorCarrito();
-  actualizarNavegacionUsuario();
+  void (async () => {
 
-  if (document.getElementById('destacados-grid')) {
-    cargarProductosDestacados();
-  }
+    const isLoginPage = window.location.pathname.endsWith("login.html");
 
-  if (document.getElementById('productos-grid')) {
-    productos.inicializarBotones();
-    productos.cargarProductos(productosData.obtenerTodos());
-    productos.filtrarProductos();
-  }
+    inicializarNavegacion();
+    actualizarContadorCarrito();
 
-  if (document.getElementById('carrito-pagina')) {
-    carrito.actualizarVistaCarrito();
-    carrito.agregarEventListenersCarrito();
-  }
+    // ⛔ NO ejecutar nada que requiera token en login.html
+    if (!isLoginPage) {
+      try {
+        await actualizarNavegacionUsuario();
+      } catch (e) {
+        console.warn("No se pudo cargar el usuario (esperado si no hay sesión).");
+      }
+    }
 
-  if (document.getElementById('formulario-actualizacion')) {
-    inicializarPerfil();
-  }
+    if (!isLoginPage && document.getElementById('destacados-grid')) {
+      await cargarProductosDestacados();
+    }
 
-  if (document.getElementById('formulario-registro')) {
-    validacion.inicializar();
-  }
+    if (!isLoginPage && document.getElementById('productos-grid')) {
+      productos.inicializarBotones();
+      const todos = await productosData.obtenerTodos();
+      await productos.cargarProductos(todos);
+      await productos.filtrarProductos();
+    }
+
+    if (!isLoginPage && document.getElementById('carrito-pagina')) {
+      carrito.actualizarVistaCarrito();
+      carrito.agregarEventListenersCarrito();
+    }
+
+    if (!isLoginPage && document.getElementById('formulario-actualizacion')) {
+      await inicializarPerfil();
+    }
+
+    if (!isLoginPage && document.getElementById('formulario-registro')) {
+      validacion.inicializar();
+    }
+
+  })();
 });
+
