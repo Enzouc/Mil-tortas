@@ -21,18 +21,16 @@ public class UsuarioUserDetails implements UserDetails {
         return List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getRol()));
     }
 
-    @Override
-    public String getPassword() {
-        return usuario.getPassword();
-    }
+    @Override public String getPassword() { return usuario.getPassword(); }
 
-    @Override
-    public String getUsername() {
-        return usuario.getCorreo(); // o usuario.getNombre() si quieres
-    }
+    @Override public String getUsername() { return usuario.getCorreo(); }
 
     @Override public boolean isAccountNonExpired() { return true; }
+
     @Override public boolean isAccountNonLocked() { return true; }
+
     @Override public boolean isCredentialsNonExpired() { return true; }
-    @Override public boolean isEnabled() { return usuario.isEnabled(); }
+
+    // Si agregaste enabled pero quieres ignorarlo → reemplaza por return true;
+    @Override public boolean isEnabled() { return true; }
 }

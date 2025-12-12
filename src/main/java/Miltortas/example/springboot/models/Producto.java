@@ -1,11 +1,9 @@
 package Miltortas.example.springboot.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "productos")
 public class Producto {
@@ -14,16 +12,28 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String codigo;     
+    @Column(nullable = false)
+    private String codigo; 
+
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(length = 1000)
+    @Column(length = 500)
     private String descripcion;
 
-    private Integer precio;    
+    @Column(nullable = false)
+    private double precio;
 
+    @Column(nullable = false)
+    private int stock;
+
+    private Integer stockCritico;
+
+    @Column(nullable = false)
     private String categoria;
-    private String tipo;       
-    private String tamano;     
-    private String imagen;
+
+    @Column(length = 20)
+    private String tamano;
+
+    private String imagenUrl;
 }

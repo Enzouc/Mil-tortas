@@ -39,4 +39,22 @@ public class UsuarioController {
         return usuarioRepo.findByCorreo(auth.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
+
+    @PutMapping("/me")
+    @PreAuthorize("hasAnyRole('ADMIN','VENDEDOR','CLIENTE')")
+    public Usuario actualizarMiPerfil(org.springframework.security.core.Authentication auth,
+                                      @RequestBody Usuario datos) {
+        Usuario actual = usuarioRepo.findByCorreo(auth.getName())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Solo campos editables por el usuario
+        if (datos.getNombre() != null) actual.setNombre(datos.getNombre());
+        if (datos.getApellido() != null) actual.setApellido(datos.getApellido());
+        if (datos.getRegion() != null) actual.setRegion(datos.getRegion());
+        if (datos.getComuna() != null) actual.setComuna(datos.getComuna());
+        if (datos.getDireccion() != null) actual.setDireccion(datos.getDireccion());
+        if (datos.getFechaNacimiento() != null) actual.setFechaNacimiento(datos.getFechaNacimiento());
+
+        return usuarioRepo.save(actual);
+    }
 }
