@@ -13,6 +13,7 @@ header .container {
     padding: 15px;
 }
 
+/* Logo */
 .logo h1 {
     color: var(--color-secondary-accent);
     font-size: 1.8rem;
@@ -22,6 +23,7 @@ header .container {
     color: var(--color-text-main);
     font-size: 0.9rem;
 }
+
 
 nav ul {
     display: flex;
@@ -52,40 +54,62 @@ nav ul li a.active {
     background-color: rgba(139, 69, 19, 0.1);
 }
 
-
+/* Oculto por defecto */
 #nav-pedidos {
-  display: none; 
+    display: none;
 }
 
+/* =============================
+   MENÚ HAMBURGUESA 
+============================= */
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* =============================
+   RESPONSIVO (MÓVIL)
+============================= */
 @media (max-width: 768px) {
+
     header .container {
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
     }
 
     nav ul {
-        margin-top: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        background: white;
+        width: 100%;
+        padding: 15px;
+        border-top: 2px solid #e3e3e3;
+
+        position: absolute;
+        top: 60px;
+        left: 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 999;
     }
-}
 
-#nav-pedidos {
-  display: none;
-}
+    nav ul.active {
+        display: flex;
+    }
 
-header nav ul li {
-  display: flex;
-  align-items: center;
-}
+    .hamburger {
+        display: block;
+        margin-left: auto;
+        margin-right: 10px;
+    }
 
-header nav ul li a {
-  text-decoration: none;
-  color: var(--color-text-main);
-  font-weight: 500;
-  transition: var(--transition);
-  padding: 5px 10px;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+    nav ul li a {
+        font-size: 18px;
+        padding: 10px 0;
+    }
 }

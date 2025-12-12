@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pastelería Mil Sabores - Productos</title>
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -12,31 +13,44 @@
 </head>
 
 <body>
+
     <header>
         <div class="container">
             <div class="logo">
                 <h1>Pastelería Mil Sabores</h1>
                 <p>50 años endulzando Chile</p>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
 
-                    <li><a href="productos.html">Productos</a></li>
+            <nav aria-label="Navegación principal">
+                <button id="menu-toggle" class="hamburger">☰</button>
+
+                <ul id="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html" class="active">Productos</a></li>
+
                     <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
                     <li id="nav-login"><a href="login.html">Ingresar</a></li>
-<li id="nav-perfil" style="display:none;"><a href="perfil.html">Mi Perfil</a></li>
-<li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesión</a></li>
+
+                    <li id="nav-perfil" style="display:none;">
+                        <a href="perfil.html">Mi Perfil</a>
+                    </li>
+
+                    <li id="nav-logout" style="display:none;">
+                        <a href="#" id="logout-btn">Cerrar sesión</a>
+                    </li>
 
                     <li id="nav-admin" style="display:none;">
                         <a href="admin.html">Administración</a>
                     </li>
 
-                    <li id="nav-pedidos-item" style="display: none;">
+                    <li id="nav-pedidos-item" style="display:none;">
                         <a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a>
                     </li>
+
                     <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                    <li>
+                        <a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a>
+                    </li>
                 </ul>
             </nav>
 
@@ -49,16 +63,18 @@
                 <h2>Nuestro Catálogo de Tortas</h2>
 
                 <div class="filtros">
+
                     <div class="filtro-grupo">
                         <label>Categoría:</label>
+
                         <button class="categoria-btn active" data-categoria="todos">Todas</button>
                         <button class="categoria-btn" data-categoria="Tortas Cuadradas">Tortas Cuadradas</button>
                         <button class="categoria-btn" data-categoria="Tortas Circulares">Tortas Circulares</button>
                         <button class="categoria-btn" data-categoria="Postres Individuales">Postres Individuales</button>
                         <button class="categoria-btn" data-categoria="Productos Sin Azúcar">Productos Sin Azúcar</button>
                         <button class="categoria-btn" data-categoria="Pastelería Tradicional">Pastelería Tradicional</button>
-                        <button class="categoria-btn" data-categoria="Productos sin gluten">Productos Sin Gluten</button>
-                        <button class="categoria-btn" data-categoria="Productos Vegana">Productos Veganos</button>
+                        <button class="categoria-btn" data-categoria="Productos Sin Gluten">Productos Sin Gluten</button>
+                        <button class="categoria-btn" data-categoria="Productos Veganos">Productos Veganos</button>
                         <button class="categoria-btn" data-categoria="Tortas Especiales">Tortas Especiales</button>
                     </div>
 
@@ -68,6 +84,7 @@
                         <button class="tamano-btn" data-tamano="mediana">Mediana</button>
                         <button class="tamano-btn" data-tamano="grande">Grande</button>
                     </div>
+
                 </div>
             </div>
 
@@ -78,22 +95,25 @@
 
     <footer>
         <div class="container">
+
             <div class="footer-section">
                 <h3>Pastelería Mil Sabores</h3>
                 <p>50 años endulzando Chile desde 1974</p>
             </div>
+
             <div class="footer-section">
                 <h3>Enlaces rápidos</h3>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Productos</a></li>
-                    <li><a href="registro.html" id="footer-registro-link">Registro</a></li>
+                    <li><a href="registro.html">Registro</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
+
             <div class="footer-section">
                 <h3>Contáctanos</h3>
-                <p>Email: info@Milsabores.cl</p>
+                <p>Email: info@milsabores.cl</p>
                 <p>Teléfono: +56 2 2345 6789</p>
                 <div class="social-icons">
                     <a href="#">FB</a>
@@ -101,46 +121,32 @@
                     <a href="#">TW</a>
                 </div>
             </div>
+
         </div>
+
         <div class="copyright">
             <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <div id="producto-modal" class="modal hidden">
-        <div class="modal-content">
-            <span id="modal-cerrar" class="modal-close">&times;</span>
+    <script type="module" src="/js/app.js"></script>
+    <script type="module" src="/js/productos.js"></script>
 
-            <img id="modal-imagen" class="modal-img" alt="Producto">
+    <script>
+        const menu = document.getElementById("menu");
+        const toggle = document.getElementById("menu-toggle");
 
-            <h2 id="modal-nombre"></h2>
-            <p id="modal-descripcion"></p>
-            <span id="modal-precio" class="modal-precio"></span>
+        toggle?.addEventListener("click", () => {
+            menu.classList.toggle("active");
+        });
 
-            <div class="modal-cantidad">
-                <button id="cantidad-menos" class="cant-btn">-</button>
-                <input id="cantidad-input" type="number" value="1" min="1">
-                <button id="cantidad-mas" class="cant-btn">+</button>
-            </div>
-
-            <div class="modal-mensaje">
-                <label>Mensaje personalizado (opcional):</label>
-                <input id="modal-mensaje-input" type="text" maxlength="25" placeholder="Ej: ¡Feliz cumpleaños!">
-            </div>
-
-            <button id="modal-agregar" class="btn-agregar">Agregar al Carrito</button>
-        </div>
-    </div>
-
-    <div id="modal-confirmacion" class="modal hidden">
-        <div class="modal-content">
-            <p id="modal-confirmacion-texto"></p>
-            <button id="modal-confirmacion-cerrar" class="btn-confirmacion">OK</button>
-        </div>
-    </div>
-
-    <script type="module" src="/js/app.ts"></script>
-    <script type="module" src="/js/productos.ts"></script>
+        // cerrar menú al seleccionar un link (móvil)
+        document.querySelectorAll("#menu a").forEach(a => {
+            a.addEventListener("click", () => {
+                menu.classList.remove("active");
+            });
+        });
+    </script>
 
 </body>
 

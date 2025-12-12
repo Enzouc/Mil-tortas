@@ -16,11 +16,14 @@
     box-sizing: border-box;
 }
 
+/* ===== BODY ===== */
+
 body {
     font-family: 'Lato', sans-serif;
     line-height: 1.6;
     color: var(--color-text-main);
     background-color: var(--color-background);
+
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -50,10 +53,15 @@ main {
     margin-bottom: 40px;
 }
 
-.cta-button, .submit-button, .finalizar-compra-btn, .agregar-carrito-btn {
+/* ===== BOTONES GENERALES ===== */
+
+.cta-button,
+.submit-button,
+.finalizar-compra-btn,
+.agregar-carrito-btn {
     display: inline-block;
     padding: 12px 30px;
-    background-color: var(--color-secondary-accent); 
+    background-color: var(--color-secondary-accent);
     color: white;
     border: none;
     border-radius: 4px;
@@ -61,10 +69,13 @@ main {
     cursor: pointer;
     transition: var(--transition);
     text-decoration: none;
-    font-family: 'Lato', sans-serif; 
+    font-family: 'Lato', sans-serif;
 }
 
-.cta-button:hover, .submit-button:hover, .finalizar-compra-btn:hover, .agregar-carrito-btn:hover {
+.cta-button:hover,
+.submit-button:hover,
+.finalizar-compra-btn:hover,
+.agregar-carrito-btn:hover {
     opacity: 0.9;
     transform: translateY(-3px);
 }
@@ -73,64 +84,67 @@ main {
     width: 100%;
 }
 
+/* ===== RESPONSIVIDAD GENERAL ===== */
+
 @media (max-width: 768px) {
     .container {
         width: 95%;
     }
-    
+
     .hero h2 {
         font-size: 2rem;
     }
-    
+
     .hero {
         padding: 60px 0;
     }
 }
 
-.modal-overlay {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; 
+/* ===== MODALES ===== */
 
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-
-
 .modal-overlay.visible {
-  opacity: 1;
-  visibility: visible;
+    opacity: 1;
+    visibility: visible;
 }
 
 .modal-contenido {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
-  text-align: center;
-  max-width: 400px;
-  width: 90%;
-  
-  transform: scale(0.9);
-  transition: transform 0.3s ease;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
 }
 
 .modal-overlay.visible .modal-contenido {
-  transform: scale(1);
+    transform: scale(1);
 }
 
 .modal-contenido p {
-  font-size: 1.1rem;
-  margin-bottom: 25px;
-  color: var(--color-text-main);
-  white-space: pre-line;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: var(--color-text-main);
+    white-space: pre-line;
 }

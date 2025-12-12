@@ -5,36 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pastelería Mil Sabores - Contacto</title>
+
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
 </head>
 
 <body>
+
     <header>
         <div class="container">
             <div class="logo">
                 <h1>Pastelería Mil Sabores</h1>
                 <p>50 años endulzando Chile</p>
             </div>
+
             <nav>
-                <ul>
+                <button id="menu-toggle" class="hamburger">☰</button>
+
+                <ul id="menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Productos</a></li>
                     <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+
                     <li id="nav-login"><a href="login.html">Ingresar</a></li>
-                    <li id="nav-perfil" style="display:none;"><a href="perfil.html">Mi Perfil</a></li>
-                    <li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesión</a></li>
+
+                    <li id="nav-perfil" style="display:none;">
+                        <a href="perfil.html">Mi Perfil</a>
+                    </li>
+
+                    <li id="nav-logout" style="display:none;">
+                        <a href="#" id="logout-btn">Cerrar sesión</a>
+                    </li>
 
                     <li id="nav-pedidos-item" style="display: none;">
                         <a href="pedidos.html">Mis Pedidos</a>
                     </li>
+
                     <li id="nav-admin" style="display:none;">
                         <a href="admin.html">Administración</a>
                     </li>
 
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                    <li><a href="contacto.html" class="active">Contacto</a></li>
+
+                    <li>
+                        <a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a>
+                    </li>
                 </ul>
             </nav>
 
@@ -45,19 +61,23 @@
         <section class="contacto">
             <div class="container">
                 <h2>Contáctanos</h2>
+
                 <div class="contacto-info">
                     <div class="info-item">
                         <h3>Dirección</h3>
-                        <p>Av. Principal 1234, Concepcion, Chile</p>
+                        <p>Av. Principal 1234, Concepción, Chile</p>
                     </div>
+
                     <div class="info-item">
                         <h3>Teléfono</h3>
                         <p>+56 2 2345 6789</p>
                     </div>
+
                     <div class="info-item">
                         <h3>Email</h3>
                         <p>info@Milsabores.cl</p>
                     </div>
+
                     <div class="info-item">
                         <h3>Horario de atención</h3>
                         <p>Lunes a Sábado: 9:00 - 20:00 hrs</p>
@@ -68,22 +88,27 @@
                 <form class="formulario-contacto">
                     <div class="form-group">
                         <label for="nombre-contacto">Nombre:</label>
-                        <input type="text" id="nombre-contacto" name="nombre" required>
+                        <input type="text" id="nombre-contacto" required>
                     </div>
+
                     <div class="form-group">
                         <label for="email-contacto">Email:</label>
-                        <input type="email" id="email-contacto" name="email" required>
+                        <input type="email" id="email-contacto" required>
                     </div>
+
                     <div class="form-group">
                         <label for="asunto">Asunto:</label>
-                        <input type="text" id="asunto" name="asunto" required>
+                        <input type="text" id="asunto" required>
                     </div>
+
                     <div class="form-group">
                         <label for="mensaje">Mensaje:</label>
-                        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        <textarea id="mensaje" rows="5" required></textarea>
                     </div>
+
                     <button type="submit" class="submit-button">Enviar mensaje</button>
                 </form>
+
             </div>
         </section>
     </main>
@@ -94,18 +119,17 @@
                 <h3>Pastelería Mil Sabores</h3>
                 <p>50 años endulzando Chile desde 1974</p>
             </div>
+
             <div class="footer-section">
                 <h3>Enlaces rápidos</h3>
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="productos.html">Productos</a></li>
-
-                    <!-- ID CORRECTO -->
                     <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
+
             <div class="footer-section">
                 <h3>Contáctanos</h3>
                 <p>Email: info@Milsabores.cl</p>
@@ -116,14 +140,22 @@
                     <a href="#">TW</a>
                 </div>
             </div>
+
         </div>
+
         <div class="copyright">
             <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <script type="module" src="/js/app.js"></script>
 
-    <script type="module" src="/js/app.ts"></script>
+    <script>
+        document.getElementById("menu-toggle")?.addEventListener("click", () => {
+            document.getElementById("menu")?.classList.toggle("active");
+        });
+    </script>
+
 </body>
 
 </html>

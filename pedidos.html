@@ -21,7 +21,11 @@
             </div>
 
             <nav>
-                <ul>
+                <!-- 🔥 Botón menú hamburguesa -->
+                <button id="menu-toggle" class="hamburger">☰</button>
+
+                <!-- 🔥 Menú responsive -->
+                <ul id="menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="productos.html">Productos</a></li>
@@ -39,6 +43,7 @@
                     <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
                 </ul>
             </nav>
+
         </div>
     </header>
 
@@ -55,8 +60,15 @@
         </div>
     </footer>
 
-    <script type="module" src="/js/app.ts"></script>
-    <script type="module" src="/js/pedidos.ts"></script>
+    <script type="module" src="/js/app.js"></script>
+    <script type="module" src="/js/pedidos.js"></script>
+
+    <!-- 🔥 SCRIPT DEL MENÚ RESPONSIVE -->
+    <script>
+        document.getElementById("menu-toggle")?.addEventListener("click", () => {
+            document.getElementById("menu")?.classList.toggle("active");
+        });
+    </script>
 
 </body>
 </html>

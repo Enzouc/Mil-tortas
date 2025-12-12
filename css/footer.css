@@ -1,6 +1,6 @@
 footer {
-    background-color: var(--color-text-main); 
-    color: #f2f2f2; 
+    background-color: var(--color-text-main);
+    color: #f2f2f2;
     padding: 50px 0 20px;
     margin-top: auto;
 }
@@ -34,6 +34,7 @@ footer .container {
     color: white;
 }
 
+
 .social-icons {
     display: flex;
     gap: 15px;
@@ -53,12 +54,50 @@ footer .container {
 }
 
 .social-icons a:hover {
-    background-color: var(--color-primary-accent); 
+    background-color: var(--color-primary-accent);
 }
 
+/* COPYRIGHT */
 .copyright {
     text-align: center;
     margin-top: 40px;
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+}
+
+
+/* =====================================================================
+   📱 RESPONSIVIDAD PARA MÓVILES (mejoras reales)
+   ===================================================================== */
+
+@media (max-width: 768px) {
+    footer {
+        padding: 35px 0 15px;
+    }
+
+    footer .container {
+        gap: 20px;
+        text-align: center; 
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    footer .container {
+        grid-template-columns: 1fr; 
+    }
+
+    .footer-section h3 {
+        font-size: 1.1rem;
+    }
+
+    .social-icons a {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+    }
 }

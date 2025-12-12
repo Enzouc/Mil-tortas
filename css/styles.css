@@ -1,0 +1,78 @@
+/* =======================  RESPONSIVIDAD GLOBAL ======================= */
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family: Arial, sans-serif;
+}
+
+/* Contenedores estándar */
+.container,
+.contenedor,
+.main{
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Grid de productos */
+.product-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px,1fr));
+    gap: 20px;
+}
+
+/* Tarjetas uniformes */
+.card, .producto, .item{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* ==================== MOBILE FIRST ==================== */
+@media(max-width: 768px){
+
+    nav ul{
+        flex-direction:column;
+        text-align:center;
+        gap:12px;
+    }
+
+    .producto, .card{
+        width:100%!important;
+    }
+
+    form{
+        width:100%!important;
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+    }
+
+    input, select, button, textarea{
+        width:100%!important;
+        font-size:1rem;
+        padding:10px;
+    }
+}
+
+/* ==================== PANTALLAS MUY PEQUEÑAS (≤480px) ==================== */
+@media(max-width:480px){
+
+    h1,h2,h3{
+        font-size:1.2rem;
+    }
+
+    nav{
+        padding:10px;
+    }
+
+    img{
+        max-width:100%;
+    }
+}

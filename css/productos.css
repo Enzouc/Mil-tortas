@@ -371,3 +371,103 @@
     opacity: 0.9;
 }
 
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 60px 20px;
+        background-position: center;
+    }
+
+    .hero h2 {
+        font-size: 1.9rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .filtros {
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .filtro-grupo {
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .categoria-btn,
+    .tamano-btn {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+        border-radius: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .productos-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .producto-card {
+        border-radius: 6px;
+    }
+
+    .producto-img img {
+        height: 160px;
+    }
+
+    .producto-info h3 {
+        font-size: 1.2rem;
+    }
+
+    .producto-info p {
+        font-size: 0.8rem;
+        height: auto;
+        max-height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        max-width: 320px;
+        padding: 15px;
+    }
+
+    .modal-img {
+        max-height: 160px;
+    }
+
+    #cantidad-input {
+        width: 45px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    .cant-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+
+    #modal-agregar {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 380px) {
+    .categoria-btn,
+    .tamano-btn {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    .producto-img img {
+        height: 140px;
+    }
+}

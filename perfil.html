@@ -19,24 +19,40 @@
                 <h1>Pastelería Mil Sabores</h1>
                 <p>50 años endulzando Chile</p>
             </div>
+
             <nav>
-                <ul>
+                <!-- 🔥 Botón hamburguesa -->
+                <button id="menu-toggle" class="hamburger">☰</button>
+
+                <!-- 🔥 Menú principal con ID para responsividad -->
+                <ul id="menu">
                     <li><a href="index.html">Inicio</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                     <li><a href="productos.html">Productos</a></li>
-                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-                    <li id="nav-admin" style="display:none;">
-    <a href="admin.html">Administración</a>
-</li>
 
-                    <li id="nav-pedidos-item" style="display: none;">
+                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+
+                    <li id="nav-admin" style="display:none;">
+                        <a href="admin.html">Administración</a>
+                    </li>
+
+                    <li id="nav-pedidos-item" style="display:none;">
                         <a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a>
                     </li>
+
+                    <li id="nav-perfil" style="display:none;">
+                        <a href="perfil.html">Mi Perfil</a>
+                    </li>
+
+                    <li id="nav-login"><a href="login.html">Ingresar</a></li>
+
+                    <li id="nav-logout" style="display:none;">
+                        <a href="#" id="logout-btn">Cerrar sesión</a>
+                    </li>
+
                     <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
                 </ul>
             </nav>
-
-
         </div>
     </header>
 
@@ -44,51 +60,62 @@
         <section class="perfil-usuario">
             <div class="container">
                 <h2>Mi Perfil</h2>
+
                 <div class="perfil-container">
+
                     <div class="perfil-form">
                         <h3>Actualizar Datos</h3>
+
                         <form id="formulario-actualizacion" class="formulario">
+
                             <div class="form-group">
                                 <label for="nombre">Nombre completo:</label>
                                 <input type="text" id="nombre" name="nombre">
                             </div>
+
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" id="email" name="email">
                             </div>
+
                             <div class="form-group">
                                 <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
                                 <input type="date" id="fecha-nacimiento" name="fecha-nacimiento">
                             </div>
+
                             <div class="form-group">
                                 <label>Preferencias de Producto:</label>
+
                                 <div class="checkbox-group">
-                                    <input type="checkbox" id="preferencia-azucar" name="preferencias"
-                                        value="sin-azucar">
+                                    <input type="checkbox" id="preferencia-azucar" name="preferencias" value="sin-azucar">
                                     <label for="preferencia-azucar">Sin azúcar</label>
                                 </div>
+
                                 <div class="checkbox-group">
                                     <input type="checkbox" id="preferencia-veganos" name="preferencias" value="veganos">
                                     <label for="preferencia-veganos">Productos veganos</label>
                                 </div>
+
                                 <div class="checkbox-group">
-                                    <input type="checkbox" id="preferencia-gluten" name="preferencias"
-                                        value="sin-gluten">
+                                    <input type="checkbox" id="preferencia-gluten" name="preferencias" value="sin-gluten">
                                     <label for="preferencia-gluten">Sin gluten</label>
                                 </div>
+
                                 <div class="checkbox-group">
-                                    <input type="checkbox" id="preferencia-lactosa" name="preferencias"
-                                        value="sin-lactosa">
+                                    <input type="checkbox" id="preferencia-lactosa" name="preferencias" value="sin-lactosa">
                                     <label for="preferencia-lactosa">Sin lactosa</label>
                                 </div>
                             </div>
+
                             <button type="submit" class="submit-button">Actualizar Perfil</button>
                         </form>
                     </div>
+
                     <div class="perfil-opciones">
                         <h3>Opciones de Cuenta</h3>
                         <button id="btn-cerrar-sesion" class="btn-peligro">Cerrar Sesión</button>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -100,6 +127,7 @@
                 <h3>Pastelería Mil Sabores</h3>
                 <p>50 años endulzando Chile desde 1974</p>
             </div>
+
             <div class="footer-section">
                 <h3>Enlaces rápidos</h3>
                 <ul>
@@ -109,6 +137,7 @@
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </div>
+
             <div class="footer-section">
                 <h3>Contáctanos</h3>
                 <p>Email: info@Milsabores.cl</p>
@@ -120,12 +149,19 @@
                 </div>
             </div>
         </div>
+
         <div class="copyright">
             <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <script type="module" src="/js/app.ts"></script>
-</body>
+    <script type="module" src="/js/app.js"></script>
 
+    <script>
+        document.getElementById("menu-toggle")?.addEventListener("click", () => {
+            document.getElementById("menu")?.classList.toggle("active");
+        });
+    </script>
+
+</body>
 </html>

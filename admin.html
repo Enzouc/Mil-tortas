@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Administrador — Mil Sabores</title>
 
     <link rel="stylesheet" href="css/base.css">
@@ -20,6 +21,46 @@
         }
     </script>
 
+    <header>
+        <div class="container">
+
+            <div class="logo">
+                <h1>Pastelería Mil Sabores</h1>
+                <p>50 años endulzando Chile</p>
+            </div>
+
+            <nav>
+                <button id="menu-toggle" class="hamburger">☰</button>
+
+                <ul id="menu">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+
+                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
+
+                    <li id="nav-perfil" style="display:none;">
+                        <a href="perfil.html">Mi Perfil</a>
+                    </li>
+
+                    <li id="nav-pedidos-item" style="display:none;">
+                        <a href="pedidos.html">Mis Pedidos</a>
+                    </li>
+
+                    <li id="nav-admin" style="display:block;">
+                        <a href="admin.html" class="active">Administración</a>
+                    </li>
+
+                    <li id="nav-logout">
+                        <a href="#" id="logout-btn">Cerrar sesión</a>
+                    </li>
+
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
 
     <h1 class="titulo-admin">Panel de Administración</h1>
 
@@ -42,7 +83,6 @@
         <p>Selecciona una opción del menú inferior.</p>
     </div>
 
-    <!-- Menú inferior admin -->
     <nav class="nav-bottom">
         <a data-section="dashboard" class="activo">
             <i>📊</i> Dashboard
@@ -61,7 +101,6 @@
     <script type="module" src="js/admin.js"></script>
 
     <script>
-        // Logout seguro
         const logout = document.getElementById("admin-logout");
         if (logout) {
             logout.addEventListener("click", () => {
@@ -70,6 +109,12 @@
                 window.location.href = "login.html";
             });
         }
+    </script>
+
+    <script>
+        document.getElementById("menu-toggle")?.addEventListener("click", () => {
+            document.getElementById("menu")?.classList.toggle("active");
+        });
     </script>
 
 </body>

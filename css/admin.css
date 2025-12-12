@@ -8,7 +8,8 @@
 
 body {
     background: #f6f6f9;
-    padding-bottom: 80px; /* espacio para el menú inferior */
+    padding-bottom: 80px; 
+
 }
 
 /* --- Titulo --- */
@@ -265,4 +266,40 @@ table.tabla tr:hover {
 .nav-bottom .activo {
     color: #000;
     font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 60%;
+        padding: 20px;
+        box-shadow: -2px 2px 10px #00000020;
+        border-radius: 0 0 0 12px;
+        z-index: 999;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+        font-size: 30px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 769px) {
+    .hamburger {
+        display: none;
+    }
 }
