@@ -1,0 +1,24 @@
+INSERT INTO productos (codigo, nombre, descripcion, precio, stock, categoria, tamano, imagen_url) VALUES
+('TC001', 'Torta Cuadrada de Chocolate', 'Deliciosa torta de chocolate con capas de ganache y un toque de avellanas. Personalizable con mensajes especiales.', 45000, 50, 'Tortas Cuadradas', 'grande', 'https://via.placeholder.com/400x300?text=TC001'),
+('TC002', 'Torta Cuadrada de Frutas', 'Mezcla de frutas frescas y crema chantilly sobre un suave bizcocho de vainilla, ideal para celebraciones.', 50000, 50, 'Tortas Cuadradas', 'grande', 'https://via.placeholder.com/400x300?text=TC002'),
+
+('TT001', 'Torta Circular de Vainilla', 'Bizcocho de vainilla relleno con crema pastelera y glaseado dulce, para cualquier ocasión.', 40000, 50, 'Tortas Circulares', 'mediana', 'https://via.placeholder.com/400x300?text=TT001'),
+('TT002', 'Torta Circular de Manjar', 'Torta chilena con manjar y nueces, deleite de los amantes de sabores dulces y clásicos.', 42000, 50, 'Tortas Circulares', 'mediana', 'https://via.placeholder.com/400x300?text=TT002'),
+
+('PI001', 'Mousse de Chocolate', 'Postre individual cremoso con chocolate de alta calidad, para amantes del chocolate.', 5000, 100, 'Postres Individuales', 'individual', 'https://via.placeholder.com/400x300?text=PI001'),
+('PI002', 'Tiramisú Clásico', 'Postre italiano individual con capas de café, mascarpone y cacao.', 5500, 100, 'Postres Individuales', 'individual', 'https://via.placeholder.com/400x300?text=PI002'),
+
+('PSA001', 'Torta Sin Azúcar de Naranja', 'Torta ligera, endulzada naturalmente, ideal para opciones saludables.', 48000, 30, 'Productos Sin Azúcar', 'mediana', 'https://via.placeholder.com/400x300?text=PSA001'),
+('PSA002', 'Cheesecake Sin Azúcar', 'Cheesecake suave y cremoso sin azúcar añadida, perfecto para disfrutar sin culpa.', 47000, 30, 'Productos Sin Azúcar', 'mediana', 'https://via.placeholder.com/400x300?text=PSA002'),
+
+('PT001', 'Empanada de Manzana', 'Pastelería tradicional rellena de manzanas especiadas, ideal para desayuno o merienda.', 3000, 120, 'Pastelería Tradicional', 'individual', 'https://via.placeholder.com/400x300?text=PT001'),
+('PT002', 'Tarta de Santiago', 'Tarta española de almendras, azúcar y huevos, clásica para los amantes del dulce.', 6000, 80, 'Pastelería Tradicional', 'mediana', 'https://via.placeholder.com/400x300?text=PT002'),
+
+('PG001', 'Brownie Sin Gluten', 'Brownie rico y denso, perfecto para quienes evitan el gluten sin sacrificar sabor.', 4000, 80, 'Productos Sin Gluten', 'individual', 'https://via.placeholder.com/400x300?text=PG001'),
+('PG002', 'Pan Sin Gluten', 'Pan suave y esponjoso, ideal para sandwiches o acompañar comidas.', 3500, 80, 'Productos Sin Gluten', 'mediana', 'https://via.placeholder.com/400x300?text=PG002'),
+
+('PV001', 'Torta Vegana de Chocolate', 'Torta de chocolate húmeda sin productos de origen animal, perfecta para veganos.', 50000, 40, 'Productos Vegana', 'mediana', 'https://via.placeholder.com/400x300?text=PV001'),
+('PV002', 'Galletas Veganas de Avena', 'Galletas crujientes y sabrosas, snack saludable y vegano.', 4500, 100, 'Productos Vegana', 'individual', 'https://via.placeholder.com/400x300?text=PV002'),
+
+('TE001', 'Torta Especial de Cumpleaños', 'Diseñada para celebraciones, personalizable con decoraciones y mensajes únicos.', 55000, 20, 'Tortas Especiales', 'grande', 'https://via.placeholder.com/400x300?text=TE001'),
+('TE002', 'Torta Especial de Boda', 'Elegante y deliciosa, pensada para ser el centro de atención en bodas.', 60000, 20, 'Tortas Especiales', 'grande', 'https://via.placeholder.com/400x300?text=TE002');
