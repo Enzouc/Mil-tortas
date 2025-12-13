@@ -54,11 +54,6 @@ nav ul li a.active {
     background-color: rgba(139, 69, 19, 0.1);
 }
 
-/* Oculto por defecto */
-#nav-pedidos {
-    display: none;
-}
-
 /* =============================
    MENÚ HAMBURGUESA 
 ============================= */

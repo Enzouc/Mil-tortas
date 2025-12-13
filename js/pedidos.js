@@ -4,7 +4,7 @@ function crearHtmlPedido(pedido) {
   const productosHtml = (pedido.detalles || pedido.productos || [])
     .map(
       (p) =>
-        `<li>${p.nombre} - ${p.cantidad} -> $${(p.precio || p.precioUnitario || 0) * p.cantidad}</li>`
+        `<li>${p.nombre} - ${p.cantidad} -> $${(p.precio || p.precioUnitario || 0) * p.cantidad}${p.mensajePersonal ? ` <em>Nota: ${p.mensajePersonal}</em>` : ""}</li>`
     )
     .join("");
 
@@ -15,8 +15,12 @@ function crearHtmlPedido(pedido) {
         <span class="pedido-fecha">${pedido.fecha || ""}</span>
       </div>
       <p><strong>Estado:</strong> ${pedido.estado || "Pendiente"}</p>
+      <p><strong>Boleta:</strong> ${pedido.boletaNumero || "Pendiente"}</p>
+      <p><strong>Seguimiento:</strong> ${pedido.seguimiento || "EN_PROCESO"}</p>
+      <p><strong>Entrega:</strong> ${pedido.fechaEntrega || "Sin definir"}</p>
       <ul>${productosHtml}</ul>
       <p class="pedido-total"><strong>Total:</strong> $${pedido.total || 0}</p>
+      ${pedido.regalo ? `<p class="pedido-regalo">${pedido.regalo}</p>` : ""}
     </div>
   `;
 }

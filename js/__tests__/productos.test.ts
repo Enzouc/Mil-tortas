@@ -3,7 +3,7 @@ import { productos } from "../productos.js";
 
 const baseProductos = [
   {
-    id: 1,
+    id: "1",
     nombre: "Torta A",
     descripcion: "Desc A",
     precio: 1000,
@@ -12,7 +12,7 @@ const baseProductos = [
     tamano: "grande",
   },
   {
-    id: 2,
+    id: "2",
     nombre: "Torta B",
     descripcion: "Desc B",
     precio: 2000,

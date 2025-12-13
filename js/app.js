@@ -24,13 +24,14 @@ export function mostrarAlertaWeb(mensaje) {
 }
 
 function aplicarVisibilidadPorRol() {
-  const usuario = storage.obtenerUsuarioGuardado();
+  let usuario = storage.obtenerUsuarioGuardado();
 
   const navLogin = document.getElementById("nav-login");
   const navRegistro = document.getElementById("nav-registro-perfil");
   const navPerfil = document.getElementById("nav-perfil");
   const navLogout = document.getElementById("nav-logout");
   const navAdmin = document.getElementById("nav-admin");
+  const navVendedor = document.getElementById("nav-vendedor");
   const navPedidos = document.getElementById("nav-pedidos-item");
   const carritoLink = document.getElementById("carrito-link");
   const logoutBtn = document.getElementById("logout-btn");
@@ -41,6 +42,7 @@ function aplicarVisibilidadPorRol() {
     navPerfil && (navPerfil.style.display = "none");
     navLogout && (navLogout.style.display = "none");
     navAdmin && (navAdmin.style.display = "none");
+    navVendedor && (navVendedor.style.display = "none");
     navPedidos && (navPedidos.style.display = "none");
     carritoLink && (carritoLink.style.display = "inline");
     if (logoutBtn) logoutBtn.onclick = null;
@@ -51,6 +53,12 @@ function aplicarVisibilidadPorRol() {
   navLogin && (navLogin.style.display = "none");
   navRegistro && (navRegistro.style.display = "none");
   navLogout && (navLogout.style.display = "block");
+  navPerfil && (navPerfil.style.display = "block");
+  navAdmin && (navAdmin.style.display = "none");
+  navVendedor && (navVendedor.style.display = "none");
+  // Pedidos visible para cualquier sesión autenticada
+  navPedidos && (navPedidos.style.display = "block");
+  carritoLink && (carritoLink.style.display = "inline");
   if (logoutBtn) {
     logoutBtn.onclick = (e) => {
       e.preventDefault();
@@ -62,27 +70,35 @@ function aplicarVisibilidadPorRol() {
 
   const rol = usuario.rol;
   if (rol === "ADMIN") {
-    navPerfil && (navPerfil.style.display = "block");
     navAdmin && (navAdmin.style.display = "block");
-    navPedidos && (navPedidos.style.display = "block");
-    carritoLink && (carritoLink.style.display = "inline");
-  } else if (rol === "VENDEDOR") {
-    navPerfil && (navPerfil.style.display = "none");
-    navAdmin && (navAdmin.style.display = "none");
-    navPedidos && (navPedidos.style.display = "block");
+    // admin no compra
     carritoLink && (carritoLink.style.display = "none");
-  } else {
-    // CLIENTE
-    navPerfil && (navPerfil.style.display = "block");
+  } else if (rol === "VENDEDOR") {
     navAdmin && (navAdmin.style.display = "none");
-    navPedidos && (navPedidos.style.display = "block");
-    carritoLink && (carritoLink.style.display = "inline");
+    navVendedor && (navVendedor.style.display = "block");
+    // vendedor no compra
+    carritoLink && (carritoLink.style.display = "none");
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   (async () => {
+    // Asegurar que tenemos usuario cargado si existe token
+    if (!storage.obtenerUsuarioGuardado() && storage.getToken()) {
+      try {
+        await storage.obtenerUsuario();
+      } catch (e) {
+        console.warn("No se pudo refrescar usuario", e);
+      }
+    }
+
     aplicarVisibilidadPorRol();
+    // Refrescar visibilidad con usuario actualizado
+    const usuarioFinal = storage.obtenerUsuarioGuardado();
+    const navPedidos = document.getElementById("nav-pedidos-item");
+    if (usuarioFinal && navPedidos) {
+      navPedidos.style.display = "block";
+    }
     await actualizarContadorCarrito();
 
     if (document.getElementById("productos-grid")) {

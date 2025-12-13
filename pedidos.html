@@ -1,74 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Pedidos - Pastelería Mil Sabores</title>
+    <title>Mis Pedidos - Pasteleria Mil Sabores</title>
 
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
 </head>
-
 <body>
+<header>
+  <div class="container">
+    <div class="logo">
+      <h1>Pasteleria Mil Sabores</h1>
+      <p>50 anos endulzando Chile</p>
+    </div>
+    <nav aria-label="Navegacion principal">
+      <button id="menu-toggle" class="hamburger"></button>
+      <ul id="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li id="nav-perfil" style="display:none;"><a href="perfil.html">Perfil</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a id="carrito-link" href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+        <li id="nav-registro-perfil"><a href="registro.html">Registro</a></li>
+        <li id="nav-login"><a href="login.html">Ingresar</a></li>
+        <li id="nav-admin" style="display:none;"><a href="admin.html">Administracion</a></li>
+        <li id="nav-vendedor" style="display:none;"><a href="vendedor.html">Vendedor</a></li>
+        <li id="nav-pedidos-item" style="display:none;"><a href="pedidos.html" id="nav-pedidos">Pedidos</a></li>
+        <li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesion</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>Pastelería Mil Sabores</h1>
-                <p>50 años endulzando Chile</p>
-            </div>
+<main>
+    <section class="container">
+        <h2>Mis Pedidos</h2>
+        <div id="lista-pedidos"></div>
+    </section>
+</main>
 
-            <nav>
-                <!-- 🔥 Botón menú hamburguesa -->
-                <button id="menu-toggle" class="hamburger">☰</button>
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Pasteleria Mil Sabores. Todos los derechos reservados.</p>
+    </div>
+</footer>
 
-                <!-- 🔥 Menú responsive -->
-                <ul id="menu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-
-                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-
-                    <li id="nav-pedidos-item" style="display:none;">
-                        <a href="pedidos.html">Mis Pedidos</a>
-                    </li>
-
-                    <li id="nav-admin" style="display:none;">
-                        <a href="admin.html">Administración</a>
-                    </li>
-
-                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
-                </ul>
-            </nav>
-
-        </div>
-    </header>
-
-    <main>
-        <section class="container">
-            <h2>Mis Pedidos</h2>
-            <div id="lista-pedidos"></div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Pastelería Mil Sabores. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <script type="module" src="/js/app.js"></script>
-    <script type="module" src="/js/pedidos.js"></script>
-
-    <!-- 🔥 SCRIPT DEL MENÚ RESPONSIVE -->
-    <script>
-        document.getElementById("menu-toggle")?.addEventListener("click", () => {
-            document.getElementById("menu")?.classList.toggle("active");
-        });
-    </script>
-
+<script type="module" src="/js/app.js"></script>
+<script type="module" src="/js/pedidos.js"></script>
+<script>
+    document.getElementById("menu-toggle")?.addEventListener("click", () => {
+        document.getElementById("menu")?.classList.toggle("active");
+    });
+</script>
 </body>
 </html>

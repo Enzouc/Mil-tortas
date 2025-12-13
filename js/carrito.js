@@ -1,5 +1,19 @@
 import { productosData } from "./productos.js";
-import { storage } from "./storage.js";
+import { storage, storagePedidos } from "./storage.js";
+
+function mostrarAlertaCarrito(mensaje) {
+  const modal = document.getElementById("modal-alerta");
+  const texto = document.getElementById("modal-mensaje");
+  const cerrarBtn = document.getElementById("modal-cerrar");
+
+  if (modal && texto && cerrarBtn) {
+    texto.textContent = mensaje;
+    modal.classList.add("visible");
+    cerrarBtn.onclick = () => modal.classList.remove("visible");
+  } else {
+    alert(mensaje);
+  }
+}
 
 function construirItem(producto, mensaje) {
   return {
@@ -20,6 +34,15 @@ export async function actualizarContadorCarrito() {
 
 export const carrito = {
   async agregarAlCarrito(productoId, mensaje) {
+    const usuario = storage.obtenerUsuarioGuardado();
+    const rol = usuario?.rol;
+    const token = storage.getToken();
+
+    if (!token || (rol && rol !== "CLIENTE")) {
+      mostrarAlertaCarrito("Solo clientes autenticados pueden comprar. Usa una cuenta de cliente.");
+      return;
+    }
+
     const producto = await productosData.obtenerPorId(productoId);
     const carritoActual = storage.obtenerCarrito();
 
@@ -34,6 +57,42 @@ export const carrito = {
 
     storage.guardarCarrito(carritoActual);
     await actualizarContadorCarrito();
+  },
+
+  async finalizarCompra(fechaEntregaPreferida) {
+    const usuario = storage.obtenerUsuarioGuardado();
+    const rol = usuario?.rol;
+    const token = storage.getToken();
+    if (!token || rol !== "CLIENTE") {
+      mostrarAlertaCarrito("Debes iniciar sesión como cliente para comprar.");
+      return;
+    }
+
+    const items = storage.obtenerCarrito();
+    if (items.length === 0) {
+      mostrarAlertaCarrito("Tu carrito está vacío.");
+      return;
+    }
+
+    const payload = {
+      usuarioId: usuario.id,
+      fechaEntregaPreferida: fechaEntregaPreferida || null,
+      items: items.map((it) => ({
+        productoId: it.id,
+        cantidad: it.cantidad,
+        mensaje: it.mensaje || "",
+      })),
+    };
+
+    try {
+      await storagePedidos.agregarPedido(payload);
+      storage.limpiarCarrito();
+      await actualizarContadorCarrito();
+      mostrarAlertaCarrito("Pedido confirmado. ¡Gracias por tu compra!");
+    } catch (err) {
+      console.error(err);
+      mostrarAlertaCarrito("No se pudo procesar el pedido.");
+    }
   },
 
   actualizarVistaCarrito() {

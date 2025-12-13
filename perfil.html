@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastelería Mil Sabores - Mi Perfil</title>
+    <title>Pasteler��a Mil Sabores - Mi Perfil</title>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
@@ -13,48 +13,30 @@
 </head>
 
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <h1>Pastelería Mil Sabores</h1>
-                <p>50 años endulzando Chile</p>
-            </div>
-
-            <nav>
-                <!-- 🔥 Botón hamburguesa -->
-                <button id="menu-toggle" class="hamburger">☰</button>
-
-                <!-- 🔥 Menú principal con ID para responsividad -->
-                <ul id="menu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-
-                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-
-                    <li id="nav-admin" style="display:none;">
-                        <a href="admin.html">Administración</a>
-                    </li>
-
-                    <li id="nav-pedidos-item" style="display:none;">
-                        <a href="pedidos.html" id="nav-pedidos">Mis Pedidos</a>
-                    </li>
-
-                    <li id="nav-perfil" style="display:none;">
-                        <a href="perfil.html">Mi Perfil</a>
-                    </li>
-
-                    <li id="nav-login"><a href="login.html">Ingresar</a></li>
-
-                    <li id="nav-logout" style="display:none;">
-                        <a href="#" id="logout-btn">Cerrar sesión</a>
-                    </li>
-
-                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+        <header>
+  <div class="container">
+    <div class="logo">
+      <h1>Pasteler�a Mil Sabores</h1>
+      <p>50 a�os endulzando Chile</p>
+    </div>
+    <nav aria-label="Navegacin principal">
+      <button id="menu-toggle" class="hamburger"></button>
+      <ul id="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li id="nav-perfil" style="display:none;"><a href="perfil.html">Perfil</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a id="carrito-link" href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+        <li id="nav-registro-perfil"><a href="registro.html">Registro</a></li>
+        <li id="nav-login"><a href="login.html">Ingresar</a></li>
+        <li id="nav-admin" style="display:none;"><a href="admin.html">Administraci&oacute;n</a></li>
+        <li id="nav-vendedor" style="display:none;"><a href="vendedor.html">Vendedor</a></li>
+        <li id="nav-pedidos-item" style="display:none;"><a href="pedidos.html" id="nav-pedidos">Pedidos</a></li>
+        <li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesi&oacute;n</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
     <main>
         <section class="perfil-usuario">
@@ -165,3 +147,4 @@
 
 </body>
 </html>
+

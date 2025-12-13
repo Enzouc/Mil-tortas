@@ -1,122 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Administrador — Mil Sabores</title>
-
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/admin.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Administrador - Mil Sabores</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/admin.css">
 </head>
-
 <body>
+  <script>
+    const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+    if (usuario.rol !== "ADMIN") {
+      window.location.href = "login.html";
+    }
+  </script>
 
-    <script>
-        const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
-        if (usuario.rol !== "ADMIN") {
-            window.location.href = "login.html";
-        }
-    </script>
-
-    <header>
-        <div class="container">
-
-            <div class="logo">
-                <h1>Pastelería Mil Sabores</h1>
-                <p>50 años endulzando Chile</p>
-            </div>
-
-            <nav>
-                <button id="menu-toggle" class="hamburger">☰</button>
-
-                <ul id="menu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-
-                    <li><a href="registro.html" id="nav-registro-perfil">Registro</a></li>
-
-                    <li id="nav-perfil" style="display:none;">
-                        <a href="perfil.html">Mi Perfil</a>
-                    </li>
-
-                    <li id="nav-pedidos-item" style="display:none;">
-                        <a href="pedidos.html">Mis Pedidos</a>
-                    </li>
-
-                    <li id="nav-admin" style="display:block;">
-                        <a href="admin.html" class="active">Administración</a>
-                    </li>
-
-                    <li id="nav-logout">
-                        <a href="#" id="logout-btn">Cerrar sesión</a>
-                    </li>
-
-                    <li><a href="contacto.html">Contacto</a></li>
-                    <li><a href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
-                </ul>
-            </nav>
-
-        </div>
-    </header>
-
-    <h1 class="titulo-admin">Panel de Administración</h1>
-
-    <div class="admin-top-buttons">
-        <a href="index.html" class="btn-top">
-            <i>🏠</i> Volver al Inicio
-        </a>
-
-        <a href="productos.html" class="btn-top">
-            <i>🎂</i> Ver Productos
-        </a>
-
-        <button id="admin-logout" class="btn-top btn-logout">
-            <i>🚪</i> Cerrar Sesión
-        </button>
+  <header>
+  <div class="container">
+    <div class="logo">
+      <h1>Pastelería Mil Sabores</h1>
+      <p>50 años endulzando Chile</p>
     </div>
-
-    <div id="admin-content">
-        <h2 class="subtitulo-admin">Bienvenido al Panel Admin</h2>
-        <p>Selecciona una opción del menú inferior.</p>
-    </div>
-
-    <nav class="nav-bottom">
-        <a data-section="dashboard" class="activo">
-            <i>📊</i> Dashboard
-        </a>
-        <a data-section="productos">
-            <i>🍰</i> Productos
-        </a>
-        <a data-section="usuarios">
-            <i>👥</i> Usuarios
-        </a>
-        <a data-section="pedidos">
-            <i>🧾</i> Pedidos
-        </a>
+    <nav aria-label="Navegacin principal">
+      <button id="menu-toggle" class="hamburger"></button>
+      <ul id="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+        <li id="nav-perfil" style="display:none;"><a href="perfil.html">Perfil</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a id="carrito-link" href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
+        <li id="nav-registro-perfil"><a href="registro.html">Registro</a></li>
+        <li id="nav-login"><a href="login.html">Ingresar</a></li>
+        <li id="nav-admin" style="display:none;"><a href="admin.html">Administraci&oacute;n</a></li>
+        <li id="nav-vendedor" style="display:none;"><a href="vendedor.html">Vendedor</a></li>
+        <li id="nav-pedidos-item" style="display:none;"><a href="pedidos.html" id="nav-pedidos">Pedidos</a></li>
+        <li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesi&oacute;n</a></li>
+      </ul>
     </nav>
+  </div>
+</header>
 
-    <script type="module" src="js/admin.js"></script>
+  <h2 id="admin-section-title" class="subtitulo-admin">Dashboard</h2>
 
-    <script>
-        const logout = document.getElementById("admin-logout");
-        if (logout) {
-            logout.addEventListener("click", () => {
-                localStorage.removeItem("usuario");
-                localStorage.removeItem("token");
-                window.location.href = "login.html";
-            });
-        }
-    </script>
+  <div id="admin-content">
+    <p>Selecciona una opcion del menu inferior.</p>
+  </div>
 
-    <script>
-        document.getElementById("menu-toggle")?.addEventListener("click", () => {
-            document.getElementById("menu")?.classList.toggle("active");
-        });
-    </script>
+  <nav class="nav-bottom">
+    <a data-section="dashboard" class="activo">
+      <i>📊</i> Dashboard
+    </a>
+    <a data-section="productos">
+      <i>🍰</i> Productos
+    </a>
+    <a data-section="usuarios">
+      <i>👥</i> Usuarios
+    </a>
+    <a data-section="pedidos">
+      <i>🧾</i> Pedidos
+    </a>
+  </nav>
 
+<script type="module" src="js/app.js"></script>
+<script type="module" src="js/admin.js"></script>
+
+<script>
+  document.getElementById("menu-toggle")?.addEventListener("click", () => {
+    document.getElementById("menu")?.classList.toggle("active");
+  });
+</script>
 </body>
-
 </html>

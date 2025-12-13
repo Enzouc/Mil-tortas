@@ -52,6 +52,17 @@ export const productosApi = {
       body: JSON.stringify(producto),
     });
   },
+
+  async actualizarProducto(id, producto) {
+    return apiRequest(`/productos/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(producto),
+    });
+  },
+
+  async eliminarProducto(id) {
+    return apiRequest(`/productos/${id}`, { method: "DELETE" });
+  },
 };
 
 /* -------------------------------------------------------
@@ -60,6 +71,13 @@ export const productosApi = {
 export const usuariosApi = {
   async obtenerTodos() {
     return apiRequest("/usuarios");
+  },
+
+  async crear(usuario) {
+    return apiRequest("/usuarios", {
+      method: "POST",
+      body: JSON.stringify(usuario),
+    });
   },
 
   async obtenerPorId(id) {

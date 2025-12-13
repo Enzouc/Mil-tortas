@@ -4,8 +4,8 @@ export interface Producto {
   descripcion: string;
   precio: number;
   categoria: string;
-  tipo: 'cuadrada' | 'circular' | 'especial';
-  tamano: 'grande' | 'mediana' | 'pequeña';
+  tipo?: string;
+  tamano: string;
   imagen: string;
 }
 
@@ -24,11 +24,10 @@ export interface Usuario {
   rol: "ADMIN" | "CLIENTE";
 }
 
-
 export interface Pedido {
   id: string;
   fecha: string;
   productos: CarritoItem[];
   total: number;
-  estado: 'pendiente' | 'en preparación' | 'entregado' | 'cancelado';
+  estado: 'pendiente' | 'en preparacion' | 'entregado' | 'cancelado';
 }
