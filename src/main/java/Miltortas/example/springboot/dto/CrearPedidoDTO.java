@@ -4,5 +4,6 @@ import java.util.List;
 
 public record CrearPedidoDTO(
         Long usuarioId,
-        List<CrearPedidoItemDTO> items
+        List<CrearPedidoItemDTO> items,
+        String fechaEntregaPreferida
 ) {}

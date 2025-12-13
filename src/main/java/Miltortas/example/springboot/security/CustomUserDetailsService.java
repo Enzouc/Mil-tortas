@@ -20,6 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         Usuario usuario = usuarioRepo.findByCorreo(correo)
                 .orElseThrow(() -> new UsernameNotFoundException("❌ No existe usuario con ese correo"));
 
-        return new UsuarioUserDetails(usuario); // 👈 así sí retorna UserDetails correctamente
+        return new UsuarioUserDetails(usuario); 
     }
 }

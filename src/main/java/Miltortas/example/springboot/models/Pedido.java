@@ -19,6 +19,10 @@ public class Pedido {
     private String regalo; 
 
     private LocalDate fecha = LocalDate.now();
+    private LocalDate fechaEntrega;
+    private String estado = "Preparación";
+    private String boletaNumero;
+    private String seguimiento;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
