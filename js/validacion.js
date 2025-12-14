@@ -1,4 +1,5 @@
 import { auth } from "./storage.js";
+import { showAlert } from "./alertas.js";
 
 export const validacion = {
   validationRules: [
@@ -137,16 +138,7 @@ export const validacion = {
   },
 
   mostrarAlerta(mensaje) {
-    const modal = document.getElementById("modal-alerta");
-    const texto = document.getElementById("modal-mensaje");
-    const cerrarBtn = document.getElementById("modal-cerrar");
-    if (modal && texto && cerrarBtn) {
-      texto.textContent = mensaje;
-      modal.classList.add("visible");
-      cerrarBtn.onclick = () => modal.classList.remove("visible");
-    } else {
-      alert(mensaje);
-    }
+    showAlert(mensaje);
   },
 
   inicializar() {

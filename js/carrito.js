@@ -1,18 +1,9 @@
 import { productosData } from "./productos.js";
 import { storage, storagePedidos } from "./storage.js";
+import { showAlert } from "./alertas.js";
 
 function mostrarAlertaCarrito(mensaje) {
-  const modal = document.getElementById("modal-alerta");
-  const texto = document.getElementById("modal-mensaje");
-  const cerrarBtn = document.getElementById("modal-cerrar");
-
-  if (modal && texto && cerrarBtn) {
-    texto.textContent = mensaje;
-    modal.classList.add("visible");
-    cerrarBtn.onclick = () => modal.classList.remove("visible");
-  } else {
-    alert(mensaje);
-  }
+  showAlert(mensaje);
 }
 
 function construirItem(producto, mensaje) {

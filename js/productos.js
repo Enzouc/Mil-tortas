@@ -21,6 +21,7 @@ export const productos = {
   productosCache: [],
   categoriaActual: "todos",
   tamanoActual: "todos",
+  modalInicializado: false,
 
   async inicializar() {
     try {
@@ -139,6 +140,9 @@ export const productos = {
   },
 
   inicializarModal() {
+    if (this.modalInicializado) return;
+    this.modalInicializado = true;
+
     const modalCerrar = document.getElementById("modal-cerrar");
     const modalAgregar = document.getElementById("modal-agregar");
     const modal = document.getElementById("producto-modal");
@@ -185,6 +189,8 @@ console.log("Producto agregado al carrito");
   },
 
   async inicializarDestacados() {
+    // Asegurar listeners del modal incluso si el fetch falla
+    this.inicializarModal();
     try {
       if (!this.productosCache.length) {
         this.productosCache = await productosData.obtenerTodos();

@@ -3,24 +3,10 @@ import { carrito, actualizarContadorCarrito } from "./carrito.js";
 import { inicializarPerfil } from "./perfil.js";
 import { validacion } from "./validacion.js";
 import { productos } from "./productos.js";
+import { showAlert } from "./alertas.js";
 
 export function mostrarAlertaWeb(mensaje) {
-  const modal = document.getElementById("modal-alerta");
-  const texto = document.getElementById("modal-mensaje");
-  const cerrarBtn = document.getElementById("modal-cerrar");
-
-  if (!modal || !texto || !cerrarBtn) {
-    console.error("No se encontró el modal en el DOM.");
-    alert(mensaje);
-    return;
-  }
-
-  texto.textContent = mensaje;
-  modal.classList.add("visible");
-
-  cerrarBtn.onclick = () => {
-    modal.classList.remove("visible");
-  };
+  showAlert(mensaje);
 }
 
 function aplicarVisibilidadPorRol() {
