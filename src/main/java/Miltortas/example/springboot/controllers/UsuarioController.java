@@ -88,8 +88,6 @@ public class UsuarioController {
     private void validarUsuario(Usuario u, boolean nuevo) {
         if (u.getRun() == null || u.getRun().length() < 7 || u.getRun().length() > 9)
             throw new RuntimeException("RUN inválido (7-9 sin puntos ni guion)");
-        if (!validaRun(u.getRun()))
-            throw new RuntimeException("RUN inválido (dígito verificador)");
         if (u.getNombre() == null || u.getNombre().length() > 50)
             throw new RuntimeException("Nombre requerido (max 50)");
         if (u.getApellido() == null || u.getApellido().length() > 100)
@@ -107,24 +105,7 @@ public class UsuarioController {
             throw new RuntimeException("Rol requerido");
     }
 
-    private boolean validaRun(String run) {
-        String clean = run.trim().toUpperCase();
-        if (!clean.matches("^[0-9]{7,8}[0-9K]$")) return false;
-        String cuerpo = clean.substring(0, clean.length() - 1);
-        char dv = clean.charAt(clean.length() - 1);
 
-        int suma = 0;
-        int factor = 2;
-        for (int i = cuerpo.length() - 1; i >= 0; i--) {
-            suma += Character.getNumericValue(cuerpo.charAt(i)) * factor;
-            factor = factor == 7 ? 2 : factor + 1;
-        }
-        int resto = 11 - (suma % 11);
-        char dvCalc;
-        if (resto == 11) dvCalc = '0';
-        else if (resto == 10) dvCalc = 'K';
-        else dvCalc = Character.forDigit(resto, 10);
-
-        return dvCalc == dv;
-    }
+        
+       
 }

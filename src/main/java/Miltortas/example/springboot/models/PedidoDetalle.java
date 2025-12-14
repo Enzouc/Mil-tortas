@@ -1,5 +1,7 @@
 package Miltortas.example.springboot.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,5 +27,5 @@ public class PedidoDetalle {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
-    private Pedido pedido;
+    @JsonIgnore private Pedido pedido;
 }

@@ -16,9 +16,12 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
-@RequestMapping("/api/pedidos")
+@RequestMapping("/api/v1/pedidos")
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class PedidoController {
 
@@ -127,4 +130,13 @@ public class PedidoController {
         return pedidoRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Pedido no encontrado"));
     }
+
+    @GetMapping("/mis-pedidos")
+    @PreAuthorize("hasRole('CLIENTE')")
+    public List<Pedido> listarPedidosCliente(@RequestParam Long usuarioId) {
+        Usuario usuario = usuarioRepo.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        return pedidoRepo.findByUsuario(usuario);
+    }
+    
 }
