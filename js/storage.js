@@ -100,11 +100,11 @@ export const usuariosApi = {
    PEDIDOS API
 -------------------------------------------------------- */
 export const storagePedidos = {
-  async obtenerPedidos() {
+  async obtenerPedidos(admin = false) {
     const usuario = usuarioActual || normalizarUsuario(JSON.parse(localStorage.getItem("usuario") || "null"));
-    let path = "/pedidos";
-    if (usuario?.rol === "ADMIN") path = "/pedidos/admin";
-    else if (usuario?.rol === "VENDEDOR") path = "/pedidos/vendedor";
+    let path = "/pedidos/mis-pedidos?usuarioId=" + (usuario?.id || "");
+    if (admin && usuario?.rol === "ADMIN") path = "/pedidos/admin";
+    else if (admin && usuario?.rol === "VENDEDOR") path = "/pedidos/vendedor";
 
     const pedidos = await apiRequest(path);
 
@@ -195,16 +195,13 @@ export const auth = {
 -------------------------------------------------------- */
 export const storage = {
   obtenerCarrito() {
-    return [...carritoEnMemoria];
-  },
+return localStorage.getItem("carrito") ? JSON.parse(localStorage.getItem("carrito")) : []; },
 
   guardarCarrito(carrito) {
-    carritoEnMemoria = [...carrito];
-  },
+localStorage.setItem("carrito", JSON.stringify(carrito)); },
 
   limpiarCarrito() {
-    carritoEnMemoria = [];
-  },
+localStorage.removeItem("carrito");},
 
   getToken() {
     return authToken || localStorage.getItem("token");

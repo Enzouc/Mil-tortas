@@ -29,7 +29,7 @@ async function mostrarPedidos() {
   const contenedor = document.getElementById("lista-pedidos");
   if (!contenedor) return;
 
-  const pedidos = await storagePedidos.obtenerPedidos();
+  const pedidos = await storagePedidos.obtenerPedidos(false);
 
   if (!pedidos || pedidos.length === 0) {
     contenedor.innerHTML = `<p class="no-pedidos">No tienes pedidos aún.</p>`;

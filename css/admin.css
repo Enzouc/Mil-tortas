@@ -7,9 +7,8 @@
 }
 
 body {
-    background: #f6f6f9;
+    background: var(--color-background);
     padding-bottom: 80px; 
-
 }
 
 /* --- Titulo --- */
@@ -18,7 +17,7 @@ body {
     margin: 20px 0;
     font-size: 2rem;
     font-weight: bold;
-    color: #333;
+    color: var(--color-secondary-accent);
 }
 
 /* --- Botones superiores --- */
@@ -33,15 +32,15 @@ body {
     background: #ffffff;
     padding: 10px 18px;
     border-radius: 12px;
-    border: 2px solid #ccc;
+    border: 2px solid var(--color-primary-accent);
     font-size: 15px;
     text-decoration: none;
-    color: #333;
+    color: var(--color-secondary-accent);
     transition: 0.2s;
 }
 
 .btn-top:hover {
-    background: #e6e6e6;
+    background: var(--color-primary-accent);
 }
 
 .btn-logout {

@@ -8,8 +8,23 @@ if (!user || user.rol !== "VENDEDOR") {
   window.location.href = "login.html";
 }
 
+
+const navMenu = document.getElementById("menu");
+if (navMenu) {
+  navMenu.querySelectorAll("li").forEach((li) => {
+    const link = li.querySelector("a");
+    if (!link) return;
+    const href = link.getAttribute("href") || "";
+    if (!href.includes("vendedor.html") && !href.includes("#") && !link.id?.includes("logout")) {
+      li.style.display = "none";
+    }
+  });
+}
+
 const contentProductos = document.getElementById("vendedor-productos");
 const contentPedidos = document.getElementById("vendedor-pedidos");
+const sectionProductos = document.getElementById("section-productos");
+const sectionPedidos = document.getElementById("section-pedidos");
 const bottomLinks = document.querySelectorAll(".nav-bottom a");
 
 bottomLinks.forEach((link) => {
@@ -24,8 +39,15 @@ bottomLinks.forEach((link) => {
 cargarSeccion("productos");
 
 function cargarSeccion(sec) {
-  if (sec === "productos") renderProductos();
-  else if (sec === "pedidos") renderPedidos();
+  if (sec === "productos") {
+    renderProductos();
+    if (sectionPedidos) sectionPedidos.style.display = "none";
+    if (sectionProductos) sectionProductos.style.display = "block";
+  } else if (sec === "pedidos") {
+    renderPedidos();
+    if (sectionProductos) sectionProductos.style.display = "none";
+    if (sectionPedidos) sectionPedidos.style.display = "block";
+  }
 }
 
 async function renderProductos() {
@@ -58,7 +80,7 @@ async function renderPedidos() {
   if (!contentPedidos) return;
   contentPedidos.innerHTML = "Cargando pedidos...";
   try {
-    const pedidos = await storagePedidos.obtenerPedidos();
+    const pedidos = await storagePedidos.obtenerPedidos(true);
     if (!pedidos || pedidos.length === 0) {
       contentPedidos.textContent = "Sin pedidos.";
       return;

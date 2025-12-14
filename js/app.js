@@ -1,8 +1,8 @@
 import { storage } from "./storage.js";
-import { productos } from "./productos.js";
 import { carrito, actualizarContadorCarrito } from "./carrito.js";
 import { inicializarPerfil } from "./perfil.js";
 import { validacion } from "./validacion.js";
+import { productos } from "./productos.js";
 
 export function mostrarAlertaWeb(mensaje) {
   const modal = document.getElementById("modal-alerta");
@@ -56,7 +56,6 @@ function aplicarVisibilidadPorRol() {
   navPerfil && (navPerfil.style.display = "block");
   navAdmin && (navAdmin.style.display = "none");
   navVendedor && (navVendedor.style.display = "none");
-  // Pedidos visible para cualquier sesión autenticada
   navPedidos && (navPedidos.style.display = "block");
   carritoLink && (carritoLink.style.display = "inline");
   if (logoutBtn) {
@@ -71,6 +70,7 @@ function aplicarVisibilidadPorRol() {
   const rol = usuario.rol;
   if (rol === "ADMIN") {
     navAdmin && (navAdmin.style.display = "block");
+    navPedidos && (navPedidos.style.display = "none");
     // admin no compra
     carritoLink && (carritoLink.style.display = "none");
   } else if (rol === "VENDEDOR") {
@@ -107,6 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (document.getElementById("carrito-pagina")) {
       carrito.actualizarVistaCarrito();
+    }
+
+    if (document.getElementById("destacados-grid")) {
+      await productos.inicializarDestacados();
     }
 
     if (document.getElementById("formulario-actualizacion")) {

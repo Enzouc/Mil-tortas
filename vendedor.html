@@ -26,17 +26,8 @@
       <nav aria-label="Navegación principal">
         <button id="menu-toggle" class="hamburger">☰</button>
         <ul id="menu">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
-          <li id="nav-perfil" style="display:none;"><a href="perfil.html">Perfil</a></li>
-          <li><a href="productos.html">Productos</a></li>
-          <li><a id="carrito-link" href="carrito.html">Carrito (<span id="contador-carrito">0</span>)</a></li>
-          <li id="nav-registro-perfil"><a href="registro.html">Registro</a></li>
-          <li id="nav-login"><a href="login.html">Ingresar</a></li>
-          <li id="nav-admin" style="display:none;"><a href="admin.html">Administración</a></li>
-          <li id="nav-vendedor" style="display:none;"><a href="vendedor.html">Vendedor</a></li>
-          <li id="nav-pedidos-item" style="display:none;"><a href="pedidos.html" id="nav-pedidos">Pedidos</a></li>
-          <li id="nav-logout" style="display:none;"><a href="#" id="logout-btn">Cerrar sesión</a></li>
+          <li id="nav-vendedor"><a href="vendedor.html">Vendedor</a></li>
+          <li id="nav-logout"><a href="#" id="logout-btn">Cerrar sesión</a></li>
         </ul>
       </nav>
     </div>
@@ -45,12 +36,12 @@
   <h2 id="vendedor-title" class="subtitulo-admin">Panel Vendedor</h2>
 
   <main class="container">
-    <section class="card">
+    <section class="card" id="section-productos">
       <h3>Productos</h3>
       <div id="vendedor-productos" class="lista-simple"></div>
     </section>
 
-    <section class="card">
+    <section class="card" id="section-pedidos" style="display:none;">
       <h3>Pedidos</h3>
       <div id="vendedor-pedidos" class="lista-simple"></div>
     </section>

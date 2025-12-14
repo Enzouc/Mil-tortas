@@ -33,7 +33,7 @@ export async function actualizarContadorCarrito() {
 }
 
 export const carrito = {
-  async agregarAlCarrito(productoId, mensaje) {
+  async agregarAlCarrito(productoId, mensaje, cantidad = 1) {
     const usuario = storage.obtenerUsuarioGuardado();
     const rol = usuario?.rol;
     const token = storage.getToken();
@@ -47,14 +47,15 @@ export const carrito = {
     const carritoActual = storage.obtenerCarrito();
 
     const existente = carritoActual.find((item) => item.id === producto.id);
-
+    const qty = Math.max(1, Number(cantidad) || 1);
     if (existente) {
-      existente.cantidad += 1;
+      existente.cantidad += qty;
       existente.mensaje = mensaje ?? existente.mensaje;
     } else {
-      carritoActual.push(construirItem(producto, mensaje));
+      const nuevo = construirItem(producto, mensaje);
+      nuevo.cantidad = qty;
+      carritoActual.push(nuevo);
     }
-
     storage.guardarCarrito(carritoActual);
     await actualizarContadorCarrito();
   },

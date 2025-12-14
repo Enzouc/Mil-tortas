@@ -52,6 +52,28 @@
     <section class="destacados container">
       <h2 class="text-center mb-40">Nuestros Productos Destacados</h2>
       <div class="productos-grid" id="destacados-grid"></div>
+      <div id="producto-modal" class="modal hidden">
+        <div class="modal-overlay-close" id="modal-overlay-close"></div>
+        <div class="modal-content">
+          <button id="modal-cerrar" class="modal-cerrar grande">✕</button>
+          <img id="modal-imagen" src="" alt="Imagen del producto">
+          <h2 id="modal-nombre">Nombre del Producto</h2>
+          <p id="modal-descripcion">Descripción del producto...</p>
+          <p id="modal-precio">Precio: $0</p>
+          <div class="modal-cantidad">
+            <button id="qty-menor" type="button">-</button>
+            <input id="qty-input" type="number" min="1" value="1" />
+            <button id="qty-mayor" type="button">+</button>
+          </div>
+          <div class="modal-share">
+            <span>Compartir:</span>
+            <a href="#" id="share-wsp">WhatsApp</a>
+            <a href="#" id="share-x">X</a>
+            <a href="#" id="share-ig">Instagram</a>
+          </div>
+          <button id="modal-agregar">Agregar al Carrito</button>
+        </div>
+      </div>
     </section>
 
     <section class="promociones">
@@ -117,41 +139,6 @@
   </footer>
 
   <script type="module" src="/js/app.js"></script>
-
-  <script type="module">
-    import { storage } from './js/storage.js';
-
-    async function inicializarNav() {
-      const usuario = await storage.obtenerUsuario();
-
-      const navLogin = document.getElementById("nav-login");
-      const navPerfil = document.getElementById("nav-perfil");
-      const navLogout = document.getElementById("nav-logout");
-      const navPedidos = document.getElementById("nav-pedidos");
-      const navPedidosLi = document.getElementById("nav-pedidos-item");
-
-      if (usuario) {
-        navLogin.style.display = "none";
-        navPerfil.style.display = "inline-flex";
-        navLogout.style.display = "inline-flex";
-        navPedidos.style.display = "inline-flex";
-        navPedidosLi.style.display = "flex";
-      } else {
-        navLogin.style.display = "inline-flex";
-        navPerfil.style.display = "none";
-        navLogout.style.display = "none";
-        navPedidos.style.display = "none";
-        navPedidosLi.style.display = "none";
-      }
-
-      document.getElementById("logout-btn")?.addEventListener("click", () => {
-        storage.limpiarUsuario();
-        window.location.href = "index.html";
-      });
-    }
-
-    inicializarNav();
-  </script>
 
   <script>
     document.getElementById("menu-toggle")?.addEventListener("click", () => {

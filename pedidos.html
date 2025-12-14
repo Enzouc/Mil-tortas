@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="css/footer.css">
 </head>
 <body>
+<script>
+  const usuario = JSON.parse(localStorage.getItem("usuario") || "null");
+  if (!usuario || usuario.rol === "ADMIN") {
+    window.location.href = "index.html";
+  }
+</script>
 <header>
   <div class="container">
     <div class="logo">
@@ -17,7 +23,7 @@
       <p>50 anos endulzando Chile</p>
     </div>
     <nav aria-label="Navegacion principal">
-      <button id="menu-toggle" class="hamburger"></button>
+      <button id="menu-toggle" class="hamburger">&#9776;</button>
       <ul id="menu">
         <li><a href="index.html">Inicio</a></li>
         <li><a href="contacto.html">Contacto</a></li>

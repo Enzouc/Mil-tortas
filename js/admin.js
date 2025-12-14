@@ -105,7 +105,7 @@ async function renderDashboard() {
     [productos, usuarios, pedidos] = await Promise.all([
       productosApi.obtenerTodos(),
       usuariosApi.obtenerTodos(),
-      storagePedidos.obtenerPedidos(),
+      storagePedidos.obtenerPedidos(true),
     ]);
   } catch (err) {
     console.error("No se pudo cargar el dashboard", err);
@@ -200,7 +200,7 @@ async function renderProductosAdmin() {
         </select>
         <select id="p-tamano" required>
           <option value="">Tamaño</option>
-          <option value="pequena">Pequeña</option>
+          <option value="pequena">Individual</option>
           <option value="mediana">Mediana</option>
           <option value="grande">Grande</option>
         </select>
@@ -382,8 +382,6 @@ async function renderUsuariosAdmin() {
     if (run.length < 7 || run.length > 9) throw new Error("RUN inválido (7-9)");
     if (!nombre || nombre.length > 50) throw new Error("Nombre inválido");
     if (!apellido || apellido.length > 100) throw new Error("Apellido inválido");
-    if (!correo.match(/^[A-Za-z0-9._%+-]+@(duoc\\.cl|profesor\\.duoc\\.cl|gmail\\.com)$/))
-      throw new Error("Correo inválido");
     if (!region || !comuna) throw new Error("Región y comuna requeridas");
     if (!direccion || direccion.length > 300) throw new Error("Dirección inválida");
 
@@ -423,7 +421,7 @@ async function renderPedidosAdmin() {
   if (!content) return;
   content.innerHTML = "<p>Cargando pedidos...</p>";
   try {
-    const pedidos = await storagePedidos.obtenerPedidos();
+    const pedidos = await storagePedidos.obtenerPedidos(true);
     content.innerHTML = `
       <h2>Gestión de Pedidos</h2>
       <div id="pedidos-admin-list">

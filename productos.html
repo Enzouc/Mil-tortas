@@ -40,6 +40,7 @@
 </header>
 
     <main>
+        
         <section class="productos">
             <div class="container">
                 <h2>Nuestro Catálogo de Tortas</h2>
@@ -62,13 +63,36 @@
 
                     <div id="filtros-tamano">
                         <button class="tamano-btn active" data-tamano="todos">Todos los tamaños</button>
-                        <button class="tamano-btn" data-tamano="pequeña">Pequeña</button>
+                        <button class="tamano-btn" data-tamano="individual">Individuales</button>
                         <button class="tamano-btn" data-tamano="mediana">Mediana</button>
                         <button class="tamano-btn" data-tamano="grande">Grande</button>
                     </div>
 
                 </div>
+                <div id="producto-modal" class="modal hidden">
+  <div class="modal-overlay-close" id="modal-overlay-close"></div>
+  <div class="modal-content">
+    <button id="modal-cerrar" class="modal-cerrar grande">✕</button>
+    <img id="modal-imagen" src="" alt="Imagen del producto">
+    <h2 id="modal-nombre">Nombre del Producto</h2>
+    <p id="modal-descripcion">Descripción del producto...</p>
+    <p id="modal-precio">Precio: $0</p>
+    <div class="modal-cantidad">
+      <button id="qty-menor" type="button">-</button>
+      <input id="qty-input" type="number" min="1" value="1" />
+      <button id="qty-mayor" type="button">+</button>
+    </div>
+    <div class="modal-share">
+      <span>Compartir:</span>
+      <a href="#" id="share-wsp">WhatsApp</a>
+      <a href="#" id="share-x">X</a>
+      <a href="#" id="share-ig">Instagram</a>
+    </div>
+    <button id="modal-agregar">Agregar al Carrito</button>
+  </div>
+</div>
             </div>
+            
 
             <div class="productos-grid" id="productos-grid"></div>
 
@@ -133,3 +157,5 @@
 </body>
 
 </html>
+
+
