@@ -31,6 +31,5 @@ public class UsuarioUserDetails implements UserDetails {
 
     @Override public boolean isCredentialsNonExpired() { return true; }
 
-    // Si agregaste enabled pero quieres ignorarlo → reemplaza por return true;
     @Override public boolean isEnabled() { return true; }
 }

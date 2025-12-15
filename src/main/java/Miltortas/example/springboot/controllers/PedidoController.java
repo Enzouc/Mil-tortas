@@ -50,6 +50,19 @@ public class PedidoController {
             Producto producto = productoRepo.findById(item.productoId())
                     .orElseThrow(() -> new RuntimeException("Producto no encontrado (ID: " + item.productoId() + ")"));
 
+            // Validar stock disponible
+            if (producto.getStock() < item.cantidad()) {
+                throw new RuntimeException("Stock insuficiente para " + producto.getNombre());
+            }
+
+            // Descontar stock
+            producto.setStock(producto.getStock() - item.cantidad());
+            // Configurar umbral crítico por defecto en 10 si no existe
+            if (producto.getStockCritico() == null) {
+                producto.setStockCritico(10);
+            }
+            productoRepo.save(producto);
+
             PedidoDetalle d = new PedidoDetalle();
             d.setProducto(producto);
             d.setCantidad(item.cantidad());
