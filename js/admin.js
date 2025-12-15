@@ -307,8 +307,9 @@ async function renderProductosAdmin() {
 async function renderUsuariosAdmin() {
   if (!content) return;
   const usuarios = await usuariosApi.obtenerTodos();
+  const usuarioActualId = usuario?.id ? String(usuario.id) : null;
   content.innerHTML = `
-    <h2>Gestión de Usuarios</h2>
+    <h2>Gestion de Usuarios</h2>
     <form id="usuario-form" class="formulario">
       <h3>Crear usuario</h3>
       <input id="u-run" placeholder="RUN sin puntos ni guion" required minlength="7" maxlength="9" />
@@ -318,7 +319,7 @@ async function renderUsuariosAdmin() {
       <input id="u-password" type="password" placeholder="Password" required />
       <input id="u-fecha" type="date" placeholder="Fecha Nacimiento (opcional)" />
       <select id="u-region" required>
-        <option value="">Región</option>
+        <option value="">Region</option>
         ${Object.keys(regiones)
           .map((r) => `<option value="${r}">${r}</option>`)
           .join("")}
@@ -326,7 +327,7 @@ async function renderUsuariosAdmin() {
       <select id="u-comuna" required>
         <option value="">Comuna</option>
       </select>
-      <input id="u-direccion" placeholder="Dirección (max 300)" maxlength="300" required />
+      <input id="u-direccion" placeholder="Direcci9n (max 300)" maxlength="300" required />
       <select id="u-rol" required>
         <option value="CLIENTE">CLIENTE</option>
         <option value="VENDEDOR">VENDEDOR</option>
@@ -336,11 +337,14 @@ async function renderUsuariosAdmin() {
     </form>
     <div id="usuarios-admin-list">
       ${usuarios
-        .map(
-          (u) => `
+        .map((u) => {
+          const esActual = usuarioActualId && String(u.id) === usuarioActualId;
+          const activo = u.activo === false ? false : true;
+          return `
         <div class="admin-card">
           <div>
-            <strong>${u.nombre} ${u.apellido}</strong> (${u.correo})
+            <strong>${u.nombre} ${u.apellido || ""}</strong> (${u.correo})
+            <div>Estado: ${activo ? "Activo" : "Deshabilitado"}</div>
             <div>Rol:
               <select data-user="${u.id}">
                 <option value="ADMIN" ${u.rol === "ADMIN" ? "selected" : ""}>ADMIN</option>
@@ -349,10 +353,19 @@ async function renderUsuariosAdmin() {
               </select>
             </div>
           </div>
-          <button data-del-user="${u.id}" class="btn-peligro">Eliminar</button>
+          <div class="acciones-usuario">
+            <button data-toggle-user="${u.id}" data-activo="${activo ? "true" : "false"}" class="btn">
+              ${activo ? "Deshabilitar" : "Habilitar"}
+            </button>
+            ${
+              esActual
+                ? `<button class="btn-peligro" disabled title="No puedes eliminar tu propia cuenta">Eliminar</button>`
+                : `<button data-del-user="${u.id}" class="btn-peligro">Eliminar</button>`
+            }
+          </div>
         </div>
-      `
-        )
+      `;
+        })
         .join("")}
     </div>
   `;
@@ -362,7 +375,7 @@ async function renderUsuariosAdmin() {
   regionSelect?.addEventListener("change", () => {
     const reg = regionSelect.value;
     const comunas = regiones[reg] || [];
-    comunaSelect.innerHTML = '<option value=\"\">Comuna</option>' + comunas.map((c) => `<option value="${c}">${c}</option>`).join("");
+    comunaSelect.innerHTML = '<option value="">Comuna</option>' + comunas.map((c) => `<option value="${c}">${c}</option>`).join("");
   });
 
   const form = document.getElementById("usuario-form");
@@ -379,11 +392,14 @@ async function renderUsuariosAdmin() {
     const direccion = document.getElementById("u-direccion").value.trim();
     const rol = document.getElementById("u-rol").value;
 
-    if (run.length < 7 || run.length > 9) throw new Error("RUN inválido (7-9)");
-    if (!nombre || nombre.length > 50) throw new Error("Nombre inválido");
-    if (!apellido || apellido.length > 100) throw new Error("Apellido inválido");
-    if (!region || !comuna) throw new Error("Región y comuna requeridas");
-    if (!direccion || direccion.length > 300) throw new Error("Dirección inválida");
+    if (run.length < 7 || run.length > 9) throw new Error("RUN invalido (7-9)");
+    if (!nombre || nombre.length > 50) throw new Error("Nombre invalido");
+    if (!apellido || apellido.length > 100) throw new Error("Apellido invalido");
+    if (!region || !comuna) throw new Error("Region y comuna requeridas");
+    if (!direccion || direccion.length > 300) throw new Error("Direccion invalida");
+    const correoLower = correo.toLowerCase();
+    const existeCorreo = usuarios.some((u) => (u.correo || "").toLowerCase() === correoLower);
+    if (existeCorreo) throw new Error("El correo ya existe");
 
     await usuariosApi.crear({
       run,
@@ -408,15 +424,26 @@ async function renderUsuariosAdmin() {
     });
   });
 
+  document.querySelectorAll("[data-toggle-user]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.getAttribute("data-toggle-user");
+      const activoActual = btn.getAttribute("data-activo") !== "false";
+      await usuariosApi.actualizar(id, { activo: !activoActual });
+      renderUsuariosAdmin();
+    });
+  });
+
   document.querySelectorAll("[data-del-user]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const id = btn.getAttribute("data-del-user");
+      const nombre = btn.closest(".admin-card")?.querySelector("strong")?.textContent || "el usuario";
+      const confirmar = window.confirm(`¿Seguro que deseas eliminar ${nombre}? Esta accion no se puede deshacer.`);
+      if (!confirmar) return;
       await usuariosApi.eliminar(id);
       renderUsuariosAdmin();
     });
   });
 }
-
 async function renderPedidosAdmin() {
   if (!content) return;
   content.innerHTML = "<p>Cargando pedidos...</p>";

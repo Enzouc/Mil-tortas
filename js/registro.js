@@ -9,23 +9,8 @@ async function cargarRegionesDesdeApi() {
   regiones = await resp.json();
 }
 
-const dominiosPermitidos = /@(duoc\\.cl|profesor\\.duoc\\.cl|gmail\\.com)$/i;
-
-function dvValido(run) {
-  const limpio = run.replace(/[^0-9kK]/g, "").toUpperCase();
-  if (limpio.length < 2) return false;
-  const cuerpo = limpio.slice(0, -1);
-  const dv = limpio.slice(-1);
-  let suma = 0;
-  let multiplicador = 2;
-  for (let i = cuerpo.length - 1; i >= 0; i--) {
-    suma += parseInt(cuerpo[i], 10) * multiplicador;
-    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
-  }
-  const resto = suma % 11;
-  const dvEsperado = 11 - resto === 11 ? "0" : 11 - resto === 10 ? "K" : String(11 - resto);
-  return dvEsperado === dv;
-}
+// Dominios permitidos y validación mínima de correo
+const dominiosPermitidos = /^[^@\s]+@(duoc\.cl|profesor\.duoc\.cl|gmail\.com)$/i;
 
 function poblarRegiones(regionSelect) {
   const options = ['<option value="">Selecciona una region</option>']
@@ -76,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     limpiarErrores();
 
-    const run = runEl.value.trim();
+    const run = runEl.value.replace(/\D/g, "").trim();
     const nombre = nombreEl.value.trim();
     const apellido = apellidoEl.value.trim();
     const correo = correoEl.value.trim();
@@ -89,8 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let esValido = true;
 
-    if (!run || run.length < 7 || run.length > 9 || !dvValido(run)) {
-      document.getElementById("error-run").textContent = "RUN invalido.";
+    // Solo validar largo mínimo (sin dígito verificador ni formato complejo)
+    if (!run || run.length < 7) {
+      document.getElementById("error-run").textContent = "RUN inválido (mínimo 7 dígitos).";
       esValido = false;
     }
 

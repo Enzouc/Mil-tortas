@@ -28,17 +28,22 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      if (resultado.usuario.activo === false) {
+        mostrarAlertaWeb("Tu cuenta está deshabilitada. Contacta al administrador.");
+        return;
+      }
+
       const rol = resultado.usuario.rol;
 
       if (rol === "ADMIN") {
         window.location.href = "/admin.html";
       } else if (rol === "VENDEDOR") {
-        window.location.href = "/pedidos.html";
+        window.location.href = "/vendedor.html";
       } else {
         window.location.href = "/perfil.html";
       }
     } catch (err) {
-      mostrarAlertaWeb("Error iniciando sesión. Intenta nuevamente.");
+      mostrarAlertaWeb(err?.message || "Error iniciando sesión. Intenta nuevamente.");
       console.error(err);
     }
   });

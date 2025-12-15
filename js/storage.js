@@ -125,6 +125,13 @@ export const storagePedidos = {
       body: JSON.stringify(nuevoPedido),
     });
   },
+
+  async marcarListo(pedidoId) {
+    return apiRequest(`/pedidos/${pedidoId}/estado`, {
+      method: "PUT",
+      body: JSON.stringify({ estado: "LISTO" }),
+    });
+  },
 };
 
 /* -------------------------------------------------------
@@ -139,6 +146,9 @@ export const auth = {
     });
 
     const data = await res.json();
+    if (data.activo === false) {
+      throw new Error("La cuenta está deshabilitada");
+    }
     const usuario = normalizarUsuario({
       id: data.id,
       nombre: data.nombre,

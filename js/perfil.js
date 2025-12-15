@@ -11,12 +11,14 @@ export async function inicializarPerfil() {
 
   const nombreInput = document.getElementById("nombre");
   const emailInput = document.getElementById("email");
+  const apellidoInput = document.getElementById("apellido");
   const fechaInput = document.getElementById("fecha-nacimiento");
   const formulario = document.getElementById("formulario-actualizacion");
   const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
 
   if (nombreInput && "value" in nombreInput) nombreInput.value = usuario.nombre || "";
   if (emailInput && "value" in emailInput) emailInput.value = usuario.correo || "";
+  if (apellidoInput && "value" in apellidoInput) apellidoInput.value = usuario.apellido || usuario.apellidos || "";
   if (fechaInput && "value" in fechaInput) fechaInput.value = usuario.fechaNacimiento || "";
 
   if (Array.isArray(usuario.preferencias)) {
@@ -39,6 +41,7 @@ export async function inicializarPerfil() {
       const usuarioActualizado = {
         ...usuario,
         nombre: nombreInput && "value" in nombreInput ? nombreInput.value : usuario.nombre,
+        apellido: apellidoInput && "value" in apellidoInput ? apellidoInput.value : usuario.apellido,
         correo: emailInput && "value" in emailInput ? emailInput.value : usuario.correo,
         fechaNacimiento:
           fechaInput && "value" in fechaInput ? fechaInput.value : usuario.fechaNacimiento,

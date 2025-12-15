@@ -87,6 +87,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     await actualizarContadorCarrito();
 
+    // Redirigir a vista exclusiva de vendedor
+    if (usuarioFinal?.rol === "VENDEDOR") {
+      const path = window.location.pathname;
+      if (!path.endsWith("/vendedor.html")) {
+        window.location.href = "/vendedor.html";
+        return;
+      }
+    }
+
     if (document.getElementById("productos-grid")) {
       await productos.inicializar();
     }

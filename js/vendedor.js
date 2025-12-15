@@ -1,5 +1,6 @@
 import { productosApi } from "./storage.js";
 import { storagePedidos } from "./storage.js";
+import { showAlert } from "./alertas.js";
 
 // Validar rol vendedor
 const userStr = localStorage.getItem("usuario");
@@ -90,14 +91,39 @@ async function renderPedidos() {
         const detalles = (p.detalles || []).map(
           (d) => `<li>${d.nombre || d.producto?.nombre || ""} x ${d.cantidad} ($${d.precioUnitario || 0})</li>`
         ).join("");
+        const estado = p.estado || "PENDIENTE";
+        const accion = estado === "LISTO"
+          ? `<span class="badge badge-success">Listo para entrega</span>`
+          : `<button class="btn-primario btn-sm marcar-listo" data-id="${p.id}">Marcar listo</button>`;
         return `
         <div class="admin-card">
-          <div><strong>Pedido #${p.id}</strong> - Total: $${p.total || 0}</div>
+          <div class="fila-pedido">
+            <div><strong>Pedido #${p.id}</strong> - Total: $${p.total || 0}</div>
+            <div>Estado: <strong>${estado}</strong> ${accion}</div>
+          </div>
           <ul class="lista-simple">${detalles}</ul>
         </div>
       `;
       })
       .join("");
+
+    contentPedidos.querySelectorAll(".marcar-listo").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const id = btn.getAttribute("data-id");
+        if (!id) return;
+        btn.disabled = true;
+        try {
+          await storagePedidos.marcarListo(id);
+          showAlert("Pedido marcado como listo.");
+          await renderPedidos();
+        } catch (err) {
+          console.error(err);
+          showAlert("No se pudo actualizar el pedido.");
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
   } catch (err) {
     console.error(err);
     contentPedidos.textContent = "Error cargando pedidos.";
