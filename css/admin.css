@@ -1,0 +1,333 @@
+/* --- Reset pequeño --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: var(--color-background);
+    padding-bottom: 80px; 
+}
+
+/* --- Titulo --- */
+.titulo-admin {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--color-secondary-accent);
+}
+
+/* --- Botones superiores --- */
+.admin-top-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.btn-top {
+    background: #ffffff;
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: 2px solid var(--color-primary-accent);
+    font-size: 15px;
+    text-decoration: none;
+    color: var(--color-secondary-accent);
+    transition: 0.2s;
+}
+
+.btn-top:hover {
+    background: var(--color-primary-accent);
+}
+
+.btn-logout {
+    border-color: #ff5555;
+    color: #ff5555;
+}
+
+.btn-logout:hover {
+    background: #ffe6e6;
+}
+
+/* --- Contenido admin --- */
+#admin-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.subtitulo-admin {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+/* --- Cards resumen --- */
+.resumen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px #00000015;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 16px;
+    color: #555;
+}
+
+.card .monto {
+    font-size: 26px;
+    margin-top: 8px;
+    color: #333;
+}
+
+/* --- Métodos de pago --- */
+.pagos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-top: 12px;
+}
+
+.pago-item {
+    background: white;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px #00000010;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- Tabla CRUD --- */
+table.tabla {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 5px #00000020;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table.tabla thead {
+    background: #eeeeee;
+}
+
+table.tabla th, 
+table.tabla td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+table.tabla tr:hover {
+    background: #fafafa;
+}
+
+/* --- Botones CRUD --- */
+.btn-editar, .btn-eliminar {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-editar {
+    background: #cce5ff;
+    color: #004085;
+}
+
+.btn-editar:hover {
+    background: #b8daff;
+}
+
+.btn-eliminar {
+    background: #ffcccc;
+    color: #721c24;
+}
+
+.btn-eliminar:hover {
+    background: #ffb3b3;
+}
+
+/* --- Botón agregar --- */
+.btn-agregar {
+    background: #00c851;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.btn-agregar:hover {
+    background: #009b41;
+}
+
+/* --- Formulario CRUD --- */
+.form {
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 6px #00000025;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.form input,
+.form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.form textarea {
+    height: 90px;
+}
+
+/* Botones guardar y cancelar */
+.btn-guardar {
+    background: #0069d9;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-guardar:hover {
+    background: #0056b3;
+}
+
+.btn-cancelar {
+    background: #cccccc;
+    padding: 10px 15px;
+    color: black;
+    border-radius: 10px;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.btn-cancelar:hover {
+    background: #bbbbbb;
+}
+
+/* Ocultar formularios */
+.oculto {
+    display: none;
+}
+
+/* --- Menú inferior --- */
+.nav-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px #00000020;
+}
+
+.nav-bottom a {
+    text-align: center;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-bottom a:hover {
+    color: #000;
+    transform: scale(1.05);
+}
+
+.nav-bottom .activo {
+    color: #000;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 60%;
+        padding: 20px;
+        box-shadow: -2px 2px 10px #00000020;
+        border-radius: 0 0 0 12px;
+        z-index: 999;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
+        font-size: 30px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+}
+
+@media (min-width: 769px) {
+    .hamburger {
+        display: none;
+    }
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.card.kpi h3 {
+  margin: 0 0 0.5rem;
+}
+
+.lista-simple {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-simple li {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #eee;
+}
